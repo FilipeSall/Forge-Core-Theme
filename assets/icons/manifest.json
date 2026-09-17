@@ -134,6 +134,13 @@
       ]
     },
     {
+      "source": "apps/groove.png",
+      "context": "apps",
+      "name": "groove",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
       "source": "apps/vlc.png",
       "context": "apps",
       "name": "vlc",
