@@ -1,0 +1,988 @@
+.notification-banner.message {
+    width: 34em;
+    min-height: 64px;
+    margin: 6px;
+}
+
+.notification-banner.message:ltr {
+    padding-right: 0;
+}
+
+.notification-banner.message:rtl {
+    padding-left: 0;
+}
+
+.notification-banner.message,
+.datemenu-popover .message {
+    padding: 0;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-image: url("assets/message-plate.svg") 8;
+}
+
+.notification-banner.message {
+    box-shadow: 0 6px 20px 2px rgba(36, 2, 8, 0.62);
+}
+
+.notification-banner.message:hover,
+.notification-banner.message:active,
+.datemenu-popover .message:hover,
+.datemenu-popover .message:active {
+    background-color: transparent;
+    border-image: url("assets/message-plate-hover.svg") 8;
+}
+
+.notification-banner.message:focus,
+.datemenu-popover .message:focus {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.notification-banner.message .message-header,
+.datemenu-popover .message .message-header {
+    padding: 0 0.3em;
+    margin: 9px 9px 0 10px;
+    spacing: 8px;
+    color: #a6a6a6;
+}
+
+.notification-banner.message .message-header .message-source-icon,
+.datemenu-popover .message .message-header .message-source-icon {
+    icon-size: 1.091em;
+    color: #a6a6a6;
+}
+
+.notification-banner.message .message-header .message-header-content,
+.datemenu-popover .message .message-header .message-header-content {
+    spacing: 8px;
+    min-height: 1.637em;
+    padding-bottom: 5px;
+}
+
+.notification-banner.message .message-header .message-header-content .message-source-title,
+.datemenu-popover .message .message-header .message-header-content .message-source-title {
+    color: #a6a6a6;
+    font-weight: bold;
+}
+
+.notification-banner.message .message-header .message-header-content .event-time,
+.datemenu-popover .message .message-header .message-header-content .event-time {
+    color: #707070;
+}
+
+.notification-banner.message .message-header .message-expand-button,
+.notification-banner.message .message-header .message-close-button,
+.datemenu-popover .message .message-header .message-expand-button,
+.datemenu-popover .message .message-header .message-close-button {
+    color: #a6a6a6;
+    background-color: #303030;
+    border-radius: 8px;
+}
+
+.notification-banner.message .message-header .message-expand-button:hover,
+.notification-banner.message .message-header .message-close-button:hover,
+.datemenu-popover .message .message-header .message-expand-button:hover,
+.datemenu-popover .message .message-header .message-close-button:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.22);
+}
+
+.notification-banner.message .message-header .message-expand-button:active,
+.notification-banner.message .message-header .message-expand-button:active:hover,
+.notification-banner.message .message-header .message-close-button:active,
+.notification-banner.message .message-header .message-close-button:active:hover,
+.datemenu-popover .message .message-header .message-expand-button:active,
+.datemenu-popover .message .message-header .message-expand-button:active:hover,
+.datemenu-popover .message .message-header .message-close-button:active,
+.datemenu-popover .message .message-header .message-close-button:active:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.34);
+}
+
+.notification-banner.message .message-header .message-expand-button:insensitive,
+.notification-banner.message .message-header .message-close-button:insensitive,
+.datemenu-popover .message .message-header .message-expand-button:insensitive,
+.datemenu-popover .message .message-header .message-close-button:insensitive {
+    color: #707070;
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.notification-banner.message .message-box,
+.datemenu-popover .message .message-box {
+    padding: 4px 0.3em 6px 0.3em;
+    margin: 0 9px 9px 10px;
+    spacing: 10px;
+}
+
+.notification-banner.message .message-box:first-child,
+.datemenu-popover .message .message-box:first-child {
+    margin-top: 12px;
+}
+
+.notification-banner.message .message-box .message-icon,
+.datemenu-popover .message .message-box .message-icon {
+    icon-size: 40px;
+}
+
+.notification-banner.message .message-box .message-icon.message-themed-icon,
+.datemenu-popover .message .message-box .message-icon.message-themed-icon {
+    border-radius: 999px;
+    background-color: rgba(252, 67, 90, 0.16);
+    color: #ff6478;
+    icon-size: 18px;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+.notification-banner.message .message-box .message-content,
+.datemenu-popover .message .message-box .message-content {
+    spacing: 3px;
+}
+
+.notification-banner.message .message-box .message-content .message-title,
+.datemenu-popover .message .message-box .message-content .message-title {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.notification-banner.message .message-box .message-content .message-body,
+.datemenu-popover .message .message-box .message-content .message-body {
+    color: #a6a6a6;
+}
+
+.notification-banner.message .url-highlighter,
+.datemenu-popover .message .url-highlighter {
+    link-color: #ff6478;
+}
+
+.notification-banner.message .message-media-control,
+.datemenu-popover .message .message-media-control {
+    color: #a6a6a6;
+    border-radius: 8px;
+}
+
+.notification-banner.message .message-media-control:hover,
+.datemenu-popover .message .message-media-control:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.22);
+}
+
+.notification-banner.message .message-media-control:active,
+.datemenu-popover .message .message-media-control:active {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.34);
+}
+
+.notification-banner.message .message-media-control:insensitive,
+.datemenu-popover .message .message-media-control:insensitive {
+    color: #707070;
+}
+
+.notification-banner.message .notification-buttons-bin,
+.datemenu-popover .message .notification-buttons-bin {
+    spacing: 1px;
+}
+
+.notification-banner.message .notification-button,
+.datemenu-popover .message .notification-button {
+    padding: 11px 12px;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+    font-weight: bold;
+}
+
+.notification-banner.message .notification-button:hover,
+.datemenu-popover .message .notification-button:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.2);
+}
+
+.notification-banner.message .notification-button:active,
+.notification-banner.message .notification-button:active:hover,
+.datemenu-popover .message .notification-button:active,
+.datemenu-popover .message .notification-button:active:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.32);
+}
+
+.notification-banner.message .notification-button:focus,
+.datemenu-popover .message .notification-button:focus {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.14);
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.notification-banner.message .notification-button:focus:hover,
+.datemenu-popover .message .notification-button:focus:hover {
+    background-color: rgba(252, 67, 90, 0.24);
+}
+
+.notification-banner.message .notification-button:insensitive,
+.datemenu-popover .message .notification-button:insensitive {
+    color: #707070;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.notification-banner.message .notification-button:first-child:ltr,
+.datemenu-popover .message .notification-button:first-child:ltr {
+    border-radius: 0 0 0 8px;
+}
+
+.notification-banner.message .notification-button:last-child:ltr,
+.datemenu-popover .message .notification-button:last-child:ltr {
+    border-radius: 0 0 8px 0;
+}
+
+.notification-banner.message .notification-button:first-child:rtl,
+.datemenu-popover .message .notification-button:first-child:rtl {
+    border-radius: 0 0 8px 0;
+}
+
+.notification-banner.message .notification-button:last-child:rtl,
+.datemenu-popover .message .notification-button:last-child:rtl {
+    border-radius: 0 0 0 8px;
+}
+
+.notification-banner.message .notification-button:first-child:last-child,
+.datemenu-popover .message .notification-button:first-child:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.popup-menu-content.datemenu-popover {
+    padding: 8px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-image: url("assets/datemenu-chassis-glass.svg") 16;
+    box-shadow: 0 6px 20px 2px rgba(36, 2, 8, 0.62);
+}
+
+.datemenu-popover #calendarArea {
+    padding: 6px;
+}
+
+.datemenu-popover .message-list {
+    border: solid #383838;
+}
+
+.datemenu-popover .message-list .message-list-placeholder {
+    color: #a6a6a6;
+    font-family: Oxanium, IBM Plex Sans, sans-serif;
+    font-size: 1.091em;
+    font-weight: 500;
+}
+
+.datemenu-popover .message-list .message-list-placeholder > StIcon {
+    icon-size: 96px;
+    margin-bottom: 16px;
+    color: transparent;
+    background-image: url("assets/notification-standby.svg");
+    background-size: contain;
+}
+
+.datemenu-popover .message-list-controls {
+    color: #a6a6a6;
+    font-weight: 500;
+}
+
+.datemenu-popover .message-list-controls .dnd-button {
+    border-color: transparent;
+    border-radius: 4px;
+}
+
+.datemenu-popover .message-list-controls .dnd-button:focus {
+    border-color: #fc435a;
+}
+
+.datemenu-popover .message-list-controls .dnd-button .toggle-switch {
+    background-image: url("assets/switch-off.svg");
+}
+
+.datemenu-popover .message-list-controls .dnd-button .toggle-switch:checked {
+    background-image: url("assets/switch-on.svg");
+}
+
+.datemenu-popover .message-list-controls .message-list-clear-button {
+    color: #ffffff;
+    background-color: #252525;
+    border: 1px solid #383838;
+    border-radius: 2px;
+    font-weight: 500;
+}
+
+.datemenu-popover .message-list-controls .message-list-clear-button:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.2);
+    border-color: #fc435a;
+}
+
+.datemenu-popover .message-list-controls .message-list-clear-button:active {
+    background-color: rgba(252, 67, 90, 0.32);
+    border-color: #ff6478;
+}
+
+.datemenu-popover .message-list-controls .message-list-clear-button:focus {
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.datemenu-popover .datemenu-today-button,
+.datemenu-popover .datemenu-today-button:insensitive {
+    padding: 12px 14px;
+    background-color: transparent !important;
+    border-radius: 0;
+    border-image: url("assets/datemenu-reticle.svg") 8;
+}
+
+.datemenu-popover .datemenu-today-button:hover,
+.datemenu-popover .datemenu-today-button:active {
+    border-image: url("assets/datemenu-reticle-active.svg") 8;
+}
+
+.datemenu-popover .datemenu-today-button:focus {
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.datemenu-popover .datemenu-today-button .day-label,
+.datemenu-popover .datemenu-today-button:insensitive .day-label {
+    color: #ffffff;
+    font-family: Oxanium, IBM Plex Sans, sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.datemenu-popover .datemenu-today-button .date-label,
+.datemenu-popover .datemenu-today-button:insensitive .date-label {
+    color: #a6a6a6;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.datemenu-popover .calendar,
+.datemenu-popover .calendar:hover,
+.datemenu-popover .calendar:active,
+.datemenu-popover .events-button,
+.datemenu-popover .world-clocks-button,
+.datemenu-popover .weather-button {
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0;
+    border-image: url("assets/datemenu-module.svg") 8;
+}
+
+.datemenu-popover .calendar {
+    padding: 6px;
+}
+
+.datemenu-popover .events-button:hover,
+.datemenu-popover .world-clocks-button:hover,
+.datemenu-popover .weather-button:hover {
+    color: #ffffff;
+    background-color: transparent;
+    border-image: url("assets/datemenu-module-hover.svg") 8;
+}
+
+.datemenu-popover .events-button:active,
+.datemenu-popover .world-clocks-button:active,
+.datemenu-popover .weather-button:active {
+    color: #ffffff;
+    background-color: transparent;
+    border-image: url("assets/datemenu-module-active.svg") 8;
+}
+
+.datemenu-popover .events-button:focus,
+.datemenu-popover .world-clocks-button:focus,
+.datemenu-popover .weather-button:focus {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.datemenu-popover .calendar .calendar-month-header .calendar-month-label {
+    color: #ffffff !important;
+    background-color: transparent;
+    border-radius: 2px;
+    font-family: Oxanium, IBM Plex Sans, sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.datemenu-popover .calendar .calendar-month-header .calendar-month-label:hover {
+    background-color: rgba(252, 67, 90, 0.12);
+}
+
+.datemenu-popover .calendar .calendar-month-header .calendar-month-label:focus {
+    background-color: rgba(252, 67, 90, 0.12);
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.datemenu-popover .calendar .calendar-month-header .pager-button {
+    color: #a6a6a6;
+    background-color: transparent;
+    border: 1px solid #383838;
+    border-radius: 2px;
+}
+
+.datemenu-popover .calendar .calendar-month-header .pager-button:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.18);
+    border-color: #fc435a;
+}
+
+.datemenu-popover .calendar .calendar-month-header .pager-button:active {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.3);
+    border-color: #ff6478;
+}
+
+.datemenu-popover .calendar .calendar-month-header .pager-button:focus {
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.datemenu-popover .calendar .calendar-day-heading {
+    color: #a6a6a6;
+    background-color: transparent;
+    font-family: JetBrains Mono, monospace;
+    font-weight: 500;
+}
+
+.datemenu-popover .calendar .calendar-day {
+    color: #ffffff;
+    background-color: transparent;
+    border-radius: 2px;
+    font-family: JetBrains Mono, monospace;
+    font-weight: 400;
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-weekend {
+    color: #a6a6a6;
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-other-month,
+.datemenu-popover .calendar .calendar-day.calendar-other-month.calendar-weekend {
+    color: #707070;
+}
+
+.datemenu-popover .calendar .calendar-day:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.16);
+}
+
+.datemenu-popover .calendar .calendar-day:active,
+.datemenu-popover .calendar .calendar-day:selected {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.12);
+    box-shadow: inset 0 0 0 1px #fc435a;
+}
+
+.datemenu-popover .calendar .calendar-day:focus {
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-today,
+.datemenu-popover .calendar .calendar-day.calendar-today:active,
+.datemenu-popover .calendar .calendar-day.calendar-today:selected {
+    color: #1b1b1b !important;
+    font-weight: 600;
+    background-color: transparent;
+    background-image: url("assets/calendar-today.svg");
+    background-size: contain;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-today:hover,
+.datemenu-popover .calendar .calendar-day.calendar-today:focus:hover {
+    color: #1b1b1b !important;
+    background-color: transparent;
+    background-image: url("assets/calendar-today-hover.svg");
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-day-with-events {
+    background-image: url("assets/calendar-day-mark.svg");
+    background-size: contain;
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-today.calendar-day-with-events {
+    background-image: url("assets/calendar-today-events.svg") !important;
+    background-size: contain;
+}
+
+.datemenu-popover .calendar .calendar-day.calendar-today.calendar-day-with-events:hover {
+    background-image: url("assets/calendar-today-events-hover.svg") !important;
+}
+
+.datemenu-popover .calendar .calendar-week-number {
+    color: #a6a6a6;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    font-family: JetBrains Mono, monospace;
+    font-weight: 500;
+}
+
+.datemenu-popover .events-button .events-box .events-title,
+.datemenu-popover .world-clocks-button .world-clocks-header,
+.datemenu-popover .weather-button .weather-box .weather-header-box .weather-header {
+    color: #a6a6a6;
+    font-family: Oxanium, IBM Plex Sans, sans-serif;
+    font-weight: 600;
+}
+
+.datemenu-popover .world-clocks-button .world-clocks-header.no-world-clocks,
+.datemenu-popover .weather-button .weather-box .weather-header-box .weather-header.no-location {
+    color: #ffffff;
+    font-family: IBM Plex Sans, sans-serif;
+    font-weight: 500;
+}
+
+.datemenu-popover .events-button .events-box .events-list .event-box .event-time,
+.datemenu-popover .world-clocks-button .world-clocks-grid .world-clocks-timezone {
+    color: #a6a6a6;
+    font-family: JetBrains Mono, monospace;
+}
+
+.datemenu-popover .events-button .events-box .events-list .event-placeholder {
+    color: #a6a6a6;
+}
+
+.datemenu-popover .events-button .events-box .events-list .event-box .event-summary,
+.datemenu-popover .world-clocks-button .world-clocks-grid .world-clocks-city {
+    color: #ffffff;
+}
+
+.datemenu-popover .world-clocks-button .world-clocks-grid .world-clocks-time,
+.datemenu-popover .weather-button .weather-box .weather-grid .weather-forecast-temp {
+    color: #ffffff;
+    font-family: JetBrains Mono, monospace;
+}
+
+.datemenu-popover .weather-button .weather-box .weather-grid .weather-forecast-time {
+    color: #a6a6a6;
+    font-family: JetBrains Mono, monospace;
+}
+
+.datemenu-popover .weather-button .weather-box .weather-grid .weather-forecast-icon {
+    color: #a6a6a6;
+}
+
+.popup-menu-content.quick-settings {
+    padding: 14px;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-image: url("assets/datemenu-chassis-glass.svg") 16;
+    box-shadow: 0 6px 20px 2px rgba(36, 2, 8, 0.62);
+}
+
+.quick-settings,
+.quick-settings StIcon,
+#panel .panel-status-indicators-box StIcon {
+    error-color: #fc435a;
+    warning-color: #ff6478;
+    success-color: #a6a6a6;
+}
+
+.quick-settings .quick-settings-grid {
+    spacing-rows: 10px;
+    spacing-columns: 10px;
+}
+
+.quick-settings StButton.quick-toggle {
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-image: url("assets/datemenu-module.svg") 8;
+}
+
+.quick-settings StButton.quick-toggle:hover {
+    color: #ffffff;
+    background-color: transparent;
+    border-image: url("assets/datemenu-module-hover.svg") 8;
+}
+
+.quick-settings StButton.quick-toggle:active {
+    color: #ffffff;
+    background-color: transparent;
+    border-image: url("assets/datemenu-module-active.svg") 8;
+}
+
+.quick-settings StButton.quick-toggle:checked,
+.quick-settings StButton.quick-toggle:checked:active {
+    color: #ffffff;
+    background-color: transparent;
+    border-image: url("assets/qs-tile-on.svg") 8;
+}
+
+.quick-settings StButton.quick-toggle:checked:hover {
+    color: #ffffff;
+    background-color: transparent;
+    border-image: url("assets/qs-tile-on-hover.svg") 8;
+}
+
+.quick-settings StButton.quick-toggle:focus,
+.quick-settings StButton.quick-toggle:checked:focus {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.quick-settings .quick-toggle .quick-toggle-icon {
+    color: #a6a6a6;
+}
+
+.quick-settings .quick-toggle:checked .quick-toggle-icon {
+    color: #fc435a;
+}
+
+.quick-settings .quick-toggle-title {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.quick-settings .quick-toggle-subtitle {
+    color: #a6a6a6;
+}
+
+.quick-settings .quick-toggle:checked .quick-toggle-subtitle {
+    color: #ff6478;
+}
+
+.quick-settings StButton.quick-menu-toggle,
+.quick-settings .quick-menu-toggle StButton.quick-toggle {
+    border-image: url("assets/qs-tile-left.svg") 8;
+}
+
+.quick-settings StButton.quick-menu-toggle:hover,
+.quick-settings .quick-menu-toggle StButton.quick-toggle:hover {
+    border-image: url("assets/qs-tile-left-hover.svg") 8;
+}
+
+.quick-settings StButton.quick-menu-toggle:checked,
+.quick-settings StButton.quick-menu-toggle:checked:active,
+.quick-settings .quick-menu-toggle StButton.quick-toggle:checked {
+    border-image: url("assets/qs-tile-left-on.svg") 8;
+}
+
+.quick-settings StButton.quick-menu-toggle:checked:hover,
+.quick-settings .quick-menu-toggle StButton.quick-toggle:checked:hover {
+    border-image: url("assets/qs-tile-left-on-hover.svg") 8;
+}
+
+.quick-settings .quick-menu-toggle StButton.quick-toggle-arrow {
+    color: #a6a6a6;
+    background-color: transparent;
+    border: 1px solid #383838;
+    border-radius: 0;
+}
+
+.quick-settings .quick-menu-toggle StButton.quick-toggle-arrow:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.18);
+    border-color: #fc435a;
+}
+
+.quick-settings .quick-menu-toggle StButton.quick-toggle-arrow:checked {
+    color: #fc435a;
+    background-color: transparent;
+    border-color: #fc435a;
+}
+
+.quick-settings .quick-menu-toggle StButton.quick-toggle-arrow:active {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.3);
+    border-color: #ff6478;
+}
+
+.quick-settings .quick-menu-toggle StButton.quick-toggle-arrow:focus {
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.quick-settings StButton.icon-button {
+    color: #a6a6a6;
+    background-color: transparent;
+    border: 1px solid #383838;
+    border-radius: 2px;
+}
+
+.quick-settings StButton.icon-button:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.18);
+    border-color: #fc435a;
+}
+
+.quick-settings StButton.icon-button:active {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.3);
+    border-color: #ff6478;
+}
+
+.quick-settings StButton.icon-button:focus {
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.quick-settings .quick-settings-system-item .power-item {
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #383838;
+    border-radius: 2px;
+    font-family: JetBrains Mono, monospace;
+    font-feature-settings: "tnum";
+    font-weight: 500;
+}
+
+.quick-settings .quick-settings-system-item .power-item:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.18);
+    border-color: #fc435a;
+}
+
+.quick-settings .quick-settings-system-item .power-item StIcon.quick-toggle-icon.forge-core-battery-charging,
+#panel .power-status StIcon.system-status-icon.forge-core-battery-charging {
+    error-color: #ff6478;
+    transition-duration: 900ms;
+}
+
+.quick-settings .quick-settings-system-item .power-item StIcon.quick-toggle-icon.forge-core-battery-charge-pulse,
+#panel .power-status StIcon.system-status-icon.forge-core-battery-charge-pulse {
+    opacity: 0.68;
+}
+
+.quick-settings .quick-slider .slider-bin {
+    padding: 6px;
+    border-radius: 2px;
+}
+
+.quick-settings .quick-slider .slider-bin:focus {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+.quick-settings .quick-slider .slider {
+    color: #ffffff;
+    -barlevel-height: 5px;
+    -barlevel-background-color: #303030;
+    -barlevel-border-width: 1px;
+    -barlevel-border-color: #383838;
+    -barlevel-active-background-color: #fc435a;
+    -barlevel-active-border-color: #ff6478;
+    -barlevel-overdrive-color: #ff6478;
+    -barlevel-overdrive-separator-width: 2px;
+    -slider-handle-radius: 6px;
+    -slider-handle-border-width: 2px;
+    -slider-handle-border-color: #1b1b1b;
+}
+
+StBoxLayout.quick-toggle-menu {
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-image: url("assets/datemenu-module.svg") 8;
+    margin: 10px 14px 0;
+    padding: 12px;
+}
+
+.quick-toggle-menu StIcon {
+    error-color: #fc435a;
+    warning-color: #ff6478;
+    success-color: #a6a6a6;
+}
+
+.quick-toggle-menu .header .title {
+    color: #ffffff;
+    font-family: Oxanium, IBM Plex Sans, sans-serif;
+    font-weight: 600;
+}
+
+.quick-toggle-menu .header .subtitle {
+    color: #a6a6a6;
+}
+
+.quick-toggle-menu .header StIcon.icon {
+    color: #a6a6a6;
+    background-color: #1b1b1b;
+    border: 1px solid #383838;
+    border-radius: 2px;
+}
+
+.quick-toggle-menu .header StIcon.icon.active {
+    color: #fc435a;
+    background-color: rgba(252, 67, 90, 0.14);
+    border-color: #fc435a;
+}
+
+.quick-toggle-menu StButton.popup-menu-item {
+    color: #ffffff;
+    border-radius: 2px;
+}
+
+.quick-toggle-menu StButton.popup-menu-item:hover,
+.quick-toggle-menu StButton.popup-menu-item:focus {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.18);
+}
+
+.quick-toggle-menu StButton.popup-menu-item:active {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.3);
+}
+
+.quick-toggle-menu .popup-separator-menu-item .popup-separator-menu-item-separator {
+    background-color: #383838;
+}
+
+StWidget#panel {
+    background-color: #1b1b1b;
+    border-bottom: 1px solid #383838;
+    font-family: Oxanium, IBM Plex Sans, sans-serif;
+    font-weight: 500;
+}
+
+#panel StWidget.panel-button {
+    color: #ffffff;
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 100px transparent;
+}
+
+#panel StWidget.panel-button:hover,
+#panel StWidget.panel-button:focus {
+    color: #ffffff;
+    box-shadow: inset 0 0 0 100px rgba(252, 67, 90, 0.16);
+}
+
+#panel StWidget.panel-button:active,
+#panel StWidget.panel-button:checked,
+#panel StWidget.panel-button:active:hover,
+#panel StWidget.panel-button:checked:hover {
+    color: #ffffff;
+    box-shadow: inset 0 0 0 100px rgba(252, 67, 90, 0.28);
+}
+
+#panel StWidget.panel-button .system-status-icon,
+#panel StWidget.panel-button .clock {
+    color: #ffffff;
+}
+
+#panel StIcon.system-status-icon {
+    error-color: #fc435a;
+    warning-color: #ff6478;
+    success-color: #a6a6a6;
+}
+
+#dashtodockContainer #dash .dash-background {
+    background-color: #1b1b1b;
+    border: none;
+    border-radius: 0;
+    border-image: none;
+}
+
+#dashtodockContainer #dash .dash-separator {
+    background-color: #383838;
+}
+
+#dashtodockContainer #dash .dash-item-container .overview-tile:hover .overview-icon,
+#dashtodockContainer #dash .dash-item-container .show-apps:hover .overview-icon {
+    background-color: rgba(252, 67, 90, 0.14);
+}
+
+#dashtodockContainer #dash .dash-item-container .overview-tile.focused .overview-icon,
+#dashtodockContainer #dash .dash-item-container .app-well-app.focused .overview-icon {
+    background-color: rgba(252, 67, 90, 0.2);
+}
+
+#dashtodockContainer #dash .dash-item-container .overview-tile .app-grid-running-dot,
+#dashtodockContainer #dash .dash-item-container .app-well-app .app-well-app-running-dot {
+    background-color: #fc435a;
+}
+
+#dashtodockContainer.left.shrink #dash StWidget.dash-item-container,
+#dashtodockContainer.right.shrink #dash StWidget.dash-item-container {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+/* Forge Core dock: flat, quiet surface with no decorative rail. */
+#dashtodockContainer.left #dash .dash-background {
+    background-color: #151719;
+    background-image: url("assets/dock-chassis.svg");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border: none;
+    border-radius: 0;
+    border-image: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 0 14px rgba(0, 0, 0, 0.42);
+}
+
+#dashtodockContainer.left #dash #dashtodockDashContainer {
+    border: none;
+    border-image: none;
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app,
+#dashtodockContainer.left #dash .dash-item-container .show-apps,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1px;
+}
+
+#dashtodockContainer.left #dash .dash-item-container .overview-icon {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 4px;
+    transition-duration: 120ms;
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app:hover .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .show-apps:hover .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile:hover .overview-icon {
+    background-color: rgba(255, 255, 255, 0.045);
+    box-shadow: inset -1px 0 0 rgba(252, 67, 90, 0.52);
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app:active .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile:active .overview-icon {
+    background-color: #252525;
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app.focused .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile.focused .overview-icon {
+    background-color: #303030;
+    border-radius: 0;
+    box-shadow: inset -2px 0 0 #fc435a, inset 0 0 0 1px rgba(252, 67, 90, 0.22);
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app.focused:hover .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile.focused:hover .overview-icon {
+    background-color: #303030;
+}
+
+#dashtodockContainer.left #dash .dash-item-container StWidget.app-well-app-running-dot,
+#dashtodockContainer.left #dash .dash-item-container StWidget.app-grid-running-dot,
+#dashtodockContainer.left #dash .dash-item-container .app-well-app-running-dot,
+#dashtodockContainer.left #dash .dash-item-container .app-grid-running-dot {
+    width: 0;
+    height: 0;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    background-color: transparent !important;
+    opacity: 0;
+    box-shadow: none !important;
+}
+
+#dashtodockContainer.left #dash .dash-separator {
+    width: 34px;
+    height: 1px;
+    margin: 6px auto;
+    background-color: #4a5156;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}

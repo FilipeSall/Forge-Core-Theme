@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+icon-theme/*/icon-theme.cache
+.DS_Store
+.impeccable/
+.superpowers/

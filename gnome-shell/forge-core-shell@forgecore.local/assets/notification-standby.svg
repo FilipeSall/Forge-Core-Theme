@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#303030"/>
+      <stop offset="1" stop-color="#1b1b1b"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a6a6a6"/>
+      <stop offset="0.45" stop-color="#707070"/>
+      <stop offset="1" stop-color="#383838"/>
+    </linearGradient>
+    <linearGradient id="bell" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a6a6a6"/>
+      <stop offset="0.55" stop-color="#707070"/>
+      <stop offset="1" stop-color="#383838"/>
+    </linearGradient>
+    <filter id="glow" x="-1" y="-1" width="3" height="3">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  <path d="M26 4H70L92 26V70L70 92H26L4 70V26Z" fill="url(#plate)" stroke="url(#rim)" stroke-width="3"/>
+  <path d="M28.49 10H67.51L86 28.49V67.51L67.51 86H28.49L10 67.51V28.49Z" fill="none" stroke="#252525" stroke-width="1.5"/>
+  <path d="M38 4H58M38 92H58" fill="none" stroke="#fc435a" stroke-width="4" stroke-opacity="0.45" filter="url(#glow)"/>
+  <path d="M38 4H58M38 92H58" fill="none" stroke="#fc435a" stroke-width="2" stroke-opacity="0.6"/>
+  <circle cx="22" cy="22" r="2" fill="#383838"/>
+  <circle cx="74" cy="22" r="2" fill="#383838"/>
+  <circle cx="22" cy="74" r="2" fill="#383838"/>
+  <circle cx="74" cy="74" r="2" fill="#383838"/>
+  <circle cx="21.4" cy="21.4" r="0.8" fill="#707070"/>
+  <circle cx="73.4" cy="21.4" r="0.8" fill="#707070"/>
+  <circle cx="21.4" cy="73.4" r="0.8" fill="#707070"/>
+  <circle cx="73.4" cy="73.4" r="0.8" fill="#707070"/>
+  <path d="M44 21H52V27H44Z" fill="#707070"/>
+  <path d="M44 21H52" fill="none" stroke="#a6a6a6"/>
+  <path d="M48 26L58 30L63 40L64 56L71 63V68H25V63L32 56L33 40L38 30Z" fill="url(#bell)"/>
+  <path d="M38.5 30.5L33.5 40.2L32.6 56" fill="none" stroke="#ffffff" stroke-opacity="0.22"/>
+  <path d="M48 27V63" fill="none" stroke="#1b1b1b" stroke-opacity="0.35"/>
+  <path d="M25 63H71V68H25Z" fill="#a6a6a6"/>
+  <path d="M25 68.5H71" fill="none" stroke="#1b1b1b"/>
+  <path d="M45 72H51L53 74V76L51 78H45L43 76V74Z" fill="#fc435a" filter="url(#glow)" opacity="0.8"/>
+  <path d="M45 72H51L53 74V76L51 78H45L43 76V74Z" fill="#fc435a"/>
+</svg>

@@ -1,0 +1,224 @@
+{
+  "theme": {
+    "dir_name": "Forge-Core-Cursor",
+    "name": "Forge Core Cursor",
+    "comment": "Cursores Forge Core - grafite escuro com luz vermelha, fallback Yaru",
+    "inherits": "Yaru"
+  },
+  "sizes": [
+    24,
+    32,
+    48,
+    64
+  ],
+  "content_padding": 0.03,
+  "cursors": [
+    {
+      "id": "arrow",
+      "frames": {
+        "24": "arrow-24.png",
+        "32": "arrow-32.png",
+        "48": "arrow-48.png"
+      },
+      "hotspot": [
+        0,
+        0
+      ],
+      "names": [
+        "left_ptr",
+        "default",
+        "arrow",
+        "top_left_arrow",
+        "wayland-cursor",
+        "wayland_cursor"
+      ]
+    },
+    {
+      "id": "pointer",
+      "master": "pointer.png",
+      "hotspot": [
+        493,
+        145
+      ],
+      "names": [
+        "hand2",
+        "hand",
+        "pointer",
+        "pointing_hand",
+        "9d800788f1b08800ae810202380a0822",
+        "e29285e634086352946a0e7090d73106"
+      ]
+    },
+    {
+      "id": "grap",
+      "master": "grap.png",
+      "hotspot": [
+        621,
+        610
+      ],
+      "names": [
+        "grab",
+        "hand1",
+        "openhand"
+      ]
+    },
+    {
+      "id": "grabbing",
+      "master": "grabbing.png",
+      "hotspot": [
+        627,
+        618
+      ],
+      "names": [
+        "grabbing",
+        "closedhand",
+        "dnd-none",
+        "size_all"
+      ]
+    },
+    {
+      "id": "text",
+      "master": "text.png",
+      "hotspot": [
+        627,
+        625
+      ],
+      "names": [
+        "xterm",
+        "text",
+        "ibeam"
+      ]
+    },
+    {
+      "id": "crosshair",
+      "master": "crosshair.png",
+      "hotspot": [
+        626,
+        628
+      ],
+      "names": [
+        "crosshair",
+        "cross",
+        "cross_reverse",
+        "diamond_cross",
+        "tcross",
+        "plus",
+        "cell",
+        "target",
+        "dotbox",
+        "dot_box_mask",
+        "draped_box",
+        "icon"
+      ]
+    },
+    {
+      "id": "wait",
+      "master": "wait.png",
+      "hotspot": [
+        622,
+        631
+      ],
+      "animation": {
+        "frames": 24,
+        "delay_ms": 40
+      },
+      "names": [
+        "watch",
+        "wait",
+        "progress",
+        "half-busy",
+        "left_ptr_watch",
+        "00000000000000020006000e7e9ffc3f",
+        "08e8e1c95fe2fc01f976f1e063a24ccd",
+        "3ecb610c1bf2410f44200f48c40d3599"
+      ]
+    },
+    {
+      "id": "resize-nwse",
+      "master": "resize.png",
+      "hotspot": [
+        641,
+        623
+      ],
+      "names": [
+        "nwse-resize",
+        "size_fdiag",
+        "size-fdiag",
+        "bd_double_arrow",
+        "c7088f0f3e6c8088236ef8e1e3e70000",
+        "top_left_corner",
+        "nw-resize",
+        "bottom_right_corner",
+        "se-resize"
+      ]
+    },
+    {
+      "id": "resize-nesw",
+      "master": "resize.png",
+      "rotate": 90,
+      "hotspot": [
+        641,
+        623
+      ],
+      "names": [
+        "nesw-resize",
+        "size_bdiag",
+        "size-bdiag",
+        "fd_double_arrow",
+        "fcf1c3c7cd4491d801f1e1c78f100000",
+        "top_right_corner",
+        "ne-resize",
+        "bottom_left_corner",
+        "sw-resize"
+      ]
+    },
+    {
+      "id": "resize-ew",
+      "master": "resize.png",
+      "rotate": 315,
+      "hotspot": [
+        641,
+        623
+      ],
+      "names": [
+        "ew-resize",
+        "sb_h_double_arrow",
+        "h_double_arrow",
+        "size_hor",
+        "size-hor",
+        "col-resize",
+        "split_h",
+        "028006030e0e7ebffc7f7070c0600140",
+        "left_side",
+        "right_side",
+        "w-resize",
+        "e-resize"
+      ]
+    },
+    {
+      "id": "resize-ns",
+      "master": "resize.png",
+      "rotate": 45,
+      "hotspot": [
+        641,
+        623
+      ],
+      "names": [
+        "ns-resize",
+        "sb_v_double_arrow",
+        "v_double_arrow",
+        "double_arrow",
+        "size_ver",
+        "size-ver",
+        "row-resize",
+        "split_v",
+        "00008160000006810000408080010102",
+        "2870a09082c103050810ffdffffe0204",
+        "top_side",
+        "bottom_side",
+        "n-resize",
+        "s-resize"
+      ]
+    }
+  ]
+}

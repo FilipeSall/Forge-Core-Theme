@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path d="M2.8 11.3L13.2 11.3L13.8 11.9L13.8 12.9L13.2 13.5L2.8 13.5L2.2 12.9L2.2 11.9Z" fill-opacity="1" fill-rule="evenodd"/>
+  <path d="M4.5 7.9L11.5 7.9L12.1 8.5L12.1 9.5L11.5 10.1L4.5 10.1L3.9 9.5L3.9 8.5Z" fill-opacity="1" fill-rule="evenodd"/>
+  <path d="M6.2 4.5L9.8 4.5L10.4 5.1L10.4 6.1L9.8 6.7L6.2 6.7L5.6 6.1L5.6 5.1Z" class="error" fill-opacity="1" fill-rule="evenodd"/>
+</svg>

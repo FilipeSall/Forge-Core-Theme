@@ -1,0 +1,19 @@
+:root {
+  --forge-dock-width: 80px;
+  --forge-dock-icon-size: 48px;
+  --forge-dock-gap: 8px;
+  --forge-dock-padding-x: 10px;
+  --forge-dock-bg: #1b1b1b;
+  --forge-dock-surface: #252525;
+  --forge-dock-elevated: #303030;
+  --forge-dock-border: #383838;
+  --forge-dock-accent: #fc435a;
+  --forge-dock-accent-hover: #ff6478;
+}
+
+/*
+  Recommended assembly:
+  top-cap: fixed 118px
+  center rail: repeat-y / stretch only vertically
+  bottom-cap: fixed 138px
+*/

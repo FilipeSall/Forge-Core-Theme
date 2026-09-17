@@ -1,0 +1,153 @@
+menu.desktopmenu,
+menu.desktopmenu menu,
+.csd menu.desktopmenu,
+.csd menu.desktopmenu menu {
+    background-color: #252525;
+    border: 1px solid #383838;
+    border-radius: 2px;
+    padding: 9px;
+    margin: 4px;
+    color: #ffffff;
+    background-image:
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, #fc435a, #fc435a),
+        linear-gradient(to right, rgba(252, 67, 90, 0.45), rgba(252, 67, 90, 0.45)),
+        linear-gradient(to right, rgba(252, 67, 90, 0.45), rgba(252, 67, 90, 0.45)),
+        linear-gradient(to right, #303030, #303030);
+    background-size:
+        16px 2px, 2px 16px,
+        16px 2px, 2px 16px,
+        16px 2px, 2px 16px,
+        16px 2px, 2px 16px,
+        1px 20px, 1px 20px,
+        100% 1px;
+    background-position:
+        left top, left top,
+        right top, right top,
+        left bottom, left bottom,
+        right bottom, right bottom,
+        left center, right center,
+        left top;
+    background-repeat: no-repeat;
+}
+
+menu.desktopmenu:backdrop,
+menu.desktopmenu menu:backdrop,
+.csd menu.desktopmenu:backdrop,
+.csd menu.desktopmenu menu:backdrop {
+    background-color: #252525;
+    color: #ffffff;
+}
+
+menu.desktopmenu menuitem,
+menu.desktopmenu menu menuitem {
+    min-height: 22px;
+    min-width: 180px;
+    padding: 6px 12px;
+    margin: 1px 0;
+    border-radius: 2px;
+    color: #ffffff;
+    background-color: transparent;
+    text-shadow: none;
+}
+
+menu.desktopmenu menuitem:backdrop,
+menu.desktopmenu menu menuitem:backdrop {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+menu.desktopmenu menuitem:hover,
+menu.desktopmenu menuitem:backdrop:hover,
+menu.desktopmenu menu menuitem:hover,
+menu.desktopmenu menu menuitem:backdrop:hover {
+    color: #ffffff;
+    background-color: rgba(252, 67, 90, 0.18);
+    box-shadow: inset 2px 0 0 0 #fc435a;
+}
+
+menu.desktopmenu menuitem:disabled,
+menu.desktopmenu menuitem:backdrop:disabled,
+menu.desktopmenu menu menuitem:disabled,
+menu.desktopmenu menu menuitem:backdrop:disabled {
+    color: #707070;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+menu.desktopmenu menuitem label,
+menu.desktopmenu menu menuitem label {
+    color: inherit;
+}
+
+menu.desktopmenu menuitem accelerator,
+menu.desktopmenu menu menuitem accelerator {
+    color: #707070;
+}
+
+menu.desktopmenu menuitem arrow,
+menu.desktopmenu menu menuitem arrow {
+    min-height: 16px;
+    min-width: 16px;
+    color: #a6a6a6;
+}
+
+menu.desktopmenu menuitem:hover arrow,
+menu.desktopmenu menu menuitem:hover arrow {
+    color: #ffffff;
+}
+
+menu.desktopmenu separator,
+menu.desktopmenu menu separator {
+    background-color: #383838;
+    min-height: 1px;
+    margin: 5px 8px;
+    padding: 0;
+}
+
+menu.desktopmenu menuitem check,
+menu.desktopmenu menuitem radio,
+menu.desktopmenu menu menuitem check,
+menu.desktopmenu menu menuitem radio {
+    color: #a6a6a6;
+    border-color: #707070;
+}
+
+menu.desktopmenu menuitem check:checked,
+menu.desktopmenu menuitem radio:checked,
+menu.desktopmenu menuitem check:indeterminate,
+menu.desktopmenu menuitem radio:indeterminate,
+menu.desktopmenu menu menuitem check:checked,
+menu.desktopmenu menu menuitem radio:checked,
+menu.desktopmenu menu menuitem check:indeterminate,
+menu.desktopmenu menu menuitem radio:indeterminate {
+    color: #fc435a;
+    border-color: #fc435a;
+}
+
+menu.desktopmenu menuitem:hover check:checked,
+menu.desktopmenu menuitem:hover radio:checked,
+menu.desktopmenu menu menuitem:hover check:checked,
+menu.desktopmenu menu menuitem:hover radio:checked {
+    color: #ff6478;
+    border-color: #ff6478;
+}
+
+menu.desktopmenu > arrow,
+menu.desktopmenu menu > arrow {
+    background-color: #252525;
+    color: #a6a6a6;
+    border-color: #383838;
+}
+
+menu.desktopmenu > arrow:hover,
+menu.desktopmenu menu > arrow:hover {
+    background-color: #303030;
+    color: #ffffff;
+}

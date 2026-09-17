@@ -1,0 +1,5 @@
+.view .thumbnail {
+    background-image: none;
+    background-color: transparent;
+    box-shadow: none;
+}

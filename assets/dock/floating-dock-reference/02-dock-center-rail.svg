@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="256" viewBox="0 0 80 256" fill="none">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="80" y2="0">
+      <stop stop-color="#181818"/>
+      <stop offset=".08" stop-color="#252525"/>
+      <stop offset=".5" stop-color="#1B1B1B"/>
+      <stop offset=".92" stop-color="#252525"/>
+      <stop offset="1" stop-color="#181818"/>
+    </linearGradient>
+    <filter id="glow" x="-300%" y="-100%" width="700%" height="300%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="80" height="256" fill="url(#body)"/>
+  <path d="M2 0V256" stroke="#383838" stroke-width="2"/>
+  <path d="M78 0V256" stroke="#383838" stroke-width="2"/>
+
+  <!-- recessed inner rails -->
+  <path d="M8 0V256" stroke="#111" stroke-width="2"/>
+  <path d="M72 0V256" stroke="#111" stroke-width="2"/>
+
+  <!-- subtle crimson channels -->
+  <path d="M5 0V256" stroke="#FC435A" stroke-width="1" opacity=".22" filter="url(#glow)"/>
+  <path d="M75 0V256" stroke="#FC435A" stroke-width="1" opacity=".22" filter="url(#glow)"/>
+
+  <!-- center seam, very subtle -->
+  <path d="M40 0V256" stroke="#303030" stroke-width=".7" opacity=".35"/>
+</svg>

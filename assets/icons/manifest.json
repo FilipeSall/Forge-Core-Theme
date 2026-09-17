@@ -1,0 +1,268 @@
+{
+  "theme": {
+    "name": "Forge Core",
+    "directory": "Forge-Core",
+    "comment": "Forge Core - metropole futurista autossuficiente. Sci-fi industrial, superfícies grafite, iluminacao #fc435a.",
+    "inherits": [
+      "Yaru",
+      "Humanity",
+      "Adwaita",
+      "hicolor"
+    ],
+    "example": "folder"
+  },
+  "sizes": [
+    16,
+    22,
+    24,
+    32,
+    48,
+    64,
+    96,
+    128,
+    256
+  ],
+  "scalableFrom": 256,
+  "scalableRange": [
+    192,
+    512
+  ],
+  "referenceSource": "folders/forge-folder.png",
+  "contentFill": {
+    "16": 0.96,
+    "22": 0.96,
+    "24": 0.96,
+    "32": 0.95,
+    "default": 0.94
+  },
+  "alphaTrimThreshold": 12,
+  "icons": [
+    {
+      "source": "folders/forge-folder.png",
+      "context": "places",
+      "name": "folder",
+      "aliases": [
+        "inode-directory"
+      ]
+    },
+    {
+      "source": "folders/forge-folder-open.png",
+      "context": "places",
+      "name": "folder-open",
+      "aliases": [
+        "folder-drag-accept"
+      ]
+    },
+    {
+      "source": "folders/forge-folder-home.png",
+      "context": "places",
+      "name": "user-home",
+      "aliases": []
+    },
+    {
+      "source": "folders/forge-folder-download.png",
+      "context": "places",
+      "name": "folder-download",
+      "aliases": []
+    },
+    {
+      "source": "apps/forge-display-setup.png",
+      "context": "apps",
+      "name": "preferences-desktop-display",
+      "aliases": [
+        "preferences-desktop-display-settings",
+        "video-display"
+      ]
+    },
+    {
+      "source": "apps/chrome.png",
+      "context": "apps",
+      "name": "google-chrome",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/warp.png",
+      "context": "apps",
+      "name": "dev.warp.Warp",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/vscode.png",
+      "context": "apps",
+      "name": "vscode",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/postman.png",
+      "context": "apps",
+      "name": "postman",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/beekeeper.png",
+      "context": "apps",
+      "name": "beekeeper-studio",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/stitch.png",
+      "context": "apps",
+      "name": "chrome-kpkpmmpeainfoiplppkjdnclpakaldhf-Profile_1",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/api-dog.png",
+      "context": "apps",
+      "name": "apidog",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/calculadora.png",
+      "context": "apps",
+      "name": "org.gnome.Calculator",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice-base.png",
+      "context": "apps",
+      "name": "libreoffice-base",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice-calc.png",
+      "context": "apps",
+      "name": "libreoffice-calc",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice-draw.png",
+      "context": "apps",
+      "name": "libreoffice-draw",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice-impress.png",
+      "context": "apps",
+      "name": "libreoffice-impress",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice-math.png",
+      "context": "apps",
+      "name": "libreoffice-math",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/discord.png",
+      "context": "apps",
+      "name": "discord",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/orca.png",
+      "context": "apps",
+      "name": "orca-stably",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "folders/forge-folder-network.png",
+      "context": "apps",
+      "name": "org.gnome.Nautilus",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/bloco-notas.png",
+      "context": "apps",
+      "name": "org.gnome.TextEditor",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/finder.png",
+      "context": "apps",
+      "name": "org.gnome.eog",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/configuracoes.png",
+      "context": "apps",
+      "name": "org.gnome.Settings",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/monitor-do-sistema.png",
+      "context": "apps",
+      "name": "org.gnome.SystemMonitor",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/firefox.png",
+      "context": "apps",
+      "name": "firefox",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/flameshot.png",
+      "context": "apps",
+      "name": "org.flameshot.Flameshot",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice.png",
+      "context": "apps",
+      "name": "libreoffice-startcenter",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/lixeira.png",
+      "context": "places",
+      "name": "user-trash",
+      "fill": 1.0,
+      "aliases": [
+        "user-trash-full"
+      ]
+    },
+    {
+      "source": "apps/todos-apps.png",
+      "context": "actions",
+      "name": "view-app-grid-user-symbolic",
+      "fill": 1.0,
+      "aliases": []
+    }
+  ],
+  "reserved": [
+    {
+      "source": "folders/forge-folder-power.png",
+      "suggestedNames": []
+    },
+    {
+      "source": "folders/forge-folder-code.png",
+      "suggestedNames": [
+        "folder-development",
+        "folder-projects"
+      ]
+    }
+  ]
+}

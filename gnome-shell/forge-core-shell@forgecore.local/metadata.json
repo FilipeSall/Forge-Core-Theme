@@ -1,0 +1,13 @@
+{
+    "uuid": "forge-core-shell@forgecore.local",
+    "name": "Forge Core Shell",
+    "description": "Identidade visual Forge Core para o GNOME Shell: notificacoes, dropdown de data/hora, Quick Settings, barra do topo e dock, com vidro desfocado nos popovers.",
+    "shell-version": [
+        "46"
+    ],
+    "session-modes": [
+        "user"
+    ],
+    "version": 2,
+    "url": "https://github.com/seatecnologia/forge-core"
+}
