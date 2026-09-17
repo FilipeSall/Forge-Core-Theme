@@ -171,6 +171,13 @@
       "aliases": []
     },
     {
+      "source": "apps/seadashdash.png",
+      "context": "apps",
+      "name": "seadashdash",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
       "source": "apps/api-dog.png",
       "context": "apps",
       "name": "apidog",
