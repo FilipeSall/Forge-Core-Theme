@@ -841,6 +841,10 @@ StWidget#panel {
     font-weight: 500;
 }
 
+#panel StWidget.panel-button#panelActivities {
+    margin-left: 15px;
+}
+
 #panel StWidget.panel-button {
     color: #ffffff;
     border-radius: 2px;
@@ -872,97 +876,168 @@ StWidget#panel {
     success-color: #a6a6a6;
 }
 
+#dashtodockContainer #dash {
+    margin: 0;
+    padding: 0;
+}
+
 #dashtodockContainer #dash .dash-background {
     background-color: #1b1b1b;
     border: none;
-    border-radius: 0;
     border-image: none;
 }
 
-#dashtodockContainer #dash .dash-separator {
-    background-color: #383838;
-}
-
-#dashtodockContainer #dash .dash-item-container .overview-tile:hover .overview-icon,
-#dashtodockContainer #dash .dash-item-container .show-apps:hover .overview-icon {
-    background-color: rgba(252, 67, 90, 0.14);
-}
-
-#dashtodockContainer #dash .dash-item-container .overview-tile.focused .overview-icon,
-#dashtodockContainer #dash .dash-item-container .app-well-app.focused .overview-icon {
-    background-color: rgba(252, 67, 90, 0.2);
-}
-
-#dashtodockContainer #dash .dash-item-container .overview-tile .app-grid-running-dot,
-#dashtodockContainer #dash .dash-item-container .app-well-app .app-well-app-running-dot {
-    background-color: #fc435a;
-}
-
-#dashtodockContainer.left.shrink #dash StWidget.dash-item-container,
-#dashtodockContainer.right.shrink #dash StWidget.dash-item-container {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-/* Forge Core dock: flat, quiet surface with no decorative rail. */
 #dashtodockContainer.left #dash .dash-background {
-    background-color: #151719;
-    background-image: url("assets/dock-chassis.svg");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    border: none;
-    border-radius: 0;
-    border-image: none;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 0 14px rgba(0, 0, 0, 0.42);
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-image: url("assets/dock-chassis-frame.svg") 8 10 120 10 !important;
 }
 
 #dashtodockContainer.left #dash #dashtodockDashContainer {
-    border: none;
+    margin-left: 0 !important;
+    padding-top: 8px !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
     border-image: none;
+}
+
+#dashtodockContainer.left #dash #dashtodockDashScrollview {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-width: 0 !important;
+}
+
+#dashtodockContainer.left #dash #dashtodockBoxContainer {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-width: 0 !important;
+}
+
+#dashtodockContainer.left #dash .dash-item-container {
+    margin-top: 8px !important;
+    margin-right: 0 !important;
+    margin-bottom: 8px !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+    background-color: transparent;
+}
+
+#dashtodockContainer.left #dash .dash-item-container:first-child {
+    margin-top: 0 !important;
+}
+
+#dashtodockContainer.left #dash .dash-item-container:last-child {
+    margin-bottom: 0 !important;
+}
+
+#dashtodockContainer.left #dash #dashtodockDashContainer > .dash-item-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-image: url("assets/dock-cap-bottom.svg");
+    background-repeat: no-repeat;
 }
 
 #dashtodockContainer.left #dash .dash-item-container .app-well-app,
 #dashtodockContainer.left #dash .dash-item-container .show-apps,
 #dashtodockContainer.left #dash .dash-item-container .overview-tile {
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-right: 14px !important;
+    padding-bottom: 0 !important;
+    padding-left: 14px !important;
     background-color: transparent;
+    background-repeat: no-repeat;
     border: none;
     border-radius: 0;
     box-shadow: none;
-    padding: 1px;
+}
+
+#dashtodockContainer.left #dash #dashtodockDashContainer > .dash-item-container .show-apps {
+    padding-top: 14px !important;
+    padding-right: 14px !important;
+    padding-bottom: 14px !important;
+    padding-left: 14px !important;
 }
 
 #dashtodockContainer.left #dash .dash-item-container .overview-icon {
+    margin: 0 !important;
+    padding: 2px !important;
     background-color: transparent;
+    background-image: none;
     border: none;
-    border-radius: 0;
+    border-radius: 15px;
     box-shadow: none;
-    padding: 4px;
-    transition-duration: 120ms;
+    color: #ffffff;
+    transition-duration: 150ms;
 }
 
 #dashtodockContainer.left #dash .dash-item-container .app-well-app:hover .overview-icon,
 #dashtodockContainer.left #dash .dash-item-container .show-apps:hover .overview-icon,
 #dashtodockContainer.left #dash .dash-item-container .overview-tile:hover .overview-icon {
-    background-color: rgba(255, 255, 255, 0.045);
-    box-shadow: inset -1px 0 0 rgba(252, 67, 90, 0.52);
+    background-color: #303030;
+    background-image: url("assets/dock-hover-plate.svg");
+    background-repeat: no-repeat;
 }
 
 #dashtodockContainer.left #dash .dash-item-container .app-well-app:active .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .show-apps:active .overview-icon,
 #dashtodockContainer.left #dash .dash-item-container .overview-tile:active .overview-icon {
     background-color: #252525;
 }
 
+#dashtodockContainer.left #dash .dash-item-container .app-well-app:focus .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .show-apps:focus .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile:focus .overview-icon {
+    background-color: #303030;
+    box-shadow: inset 0 0 0 2px #fc435a !important;
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app.running,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile.running {
+    background-image: url("assets/dock-indicator-running.svg");
+    background-repeat: no-repeat;
+}
+
+#dashtodockContainer.left #dash .dash-item-container .app-well-app.focused,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile.focused {
+    background-image: url("assets/dock-indicator-focused.svg");
+    background-repeat: no-repeat;
+}
+
 #dashtodockContainer.left #dash .dash-item-container .app-well-app.focused .overview-icon,
 #dashtodockContainer.left #dash .dash-item-container .overview-tile.focused .overview-icon {
-    background-color: #303030;
-    border-radius: 0;
-    box-shadow: inset -2px 0 0 #fc435a, inset 0 0 0 1px rgba(252, 67, 90, 0.22);
+    background-color: #252525;
 }
 
 #dashtodockContainer.left #dash .dash-item-container .app-well-app.focused:hover .overview-icon,
 #dashtodockContainer.left #dash .dash-item-container .overview-tile.focused:hover .overview-icon {
     background-color: #303030;
+    background-image: url("assets/dock-hover-plate.svg");
+}
+
+#dashtodockContainer.left #dash #dashtodockDashContainer > .dash-item-container .show-apps .overview-icon {
+    background-image: none;
+    border-radius: 30px;
+}
+
+#dashtodockContainer.left #dash #dashtodockDashContainer > .dash-item-container .show-apps:hover .overview-icon {
+    background-color: #303030;
+    background-image: none;
+    border-radius: 30px;
+}
+
+#dashtodockContainer.left #dash #dashtodockDashContainer > .dash-item-container .show-apps:checked .overview-icon {
+    background-color: #303030;
+    background-image: none;
+    border-radius: 30px;
+    box-shadow: inset 0 0 0 2px #fc435a !important;
 }
 
 #dashtodockContainer.left #dash .dash-item-container StWidget.app-well-app-running-dot,
@@ -973,16 +1048,24 @@ StWidget#panel {
     height: 0;
     min-width: 0;
     min-height: 0;
-    margin: 0;
+    margin: 0 !important;
     background-color: transparent !important;
     opacity: 0;
     box-shadow: none !important;
 }
 
 #dashtodockContainer.left #dash .dash-separator {
-    width: 34px;
-    height: 1px;
-    margin: 6px auto;
-    background-color: #4a5156;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none;
+}
+
+#dashtodockContainer.left #dash #dashtodockBoxContainer .dash-item-container:last-child {
+    padding-top: 14px !important;
+    background-image: url("assets/dock-trash-separator.svg");
+    background-repeat: no-repeat;
 }

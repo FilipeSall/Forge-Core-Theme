@@ -165,31 +165,105 @@ classe mais `fileitemmenu` no menu de clique direito sobre um ícone.
 
 Consequência: o menu é estilizado por **CSS GTK3**, não por CSS do shell.
 
-### Espaçamento e superfície do dock — Ubuntu Dock (St / CSS do shell)
+### Chassi flutuante do dock — Ubuntu Dock (St / CSS do shell)
 
-Dock à esquerda, `custom-theme-shrink` ligado, ícones de 56 px. **Espaço entre ícones: 14 px**
-(passo de 70 px, medido no print do dock).
+Dock à esquerda, `dock-fixed`, altura cheia, ícones de 48 px, encostado na borda. A extensão não
+toca nos ícones: troca apenas o chassi em volta deles, o espaçamento e os estados.
 
-O Ubuntu Dock com shrink põe `margin: 2px 0` em cada `.dash-item-container`; o padding de 6 px
-do `.overview-icon` (Yaru) fica em volta do ícone. A extensão troca só a margem vertical do
-container para `1px`: 56 + 12 + 2 = 70 px. O padding do `.overview-icon` fica no padrão para o
-destaque de hover/foco não colar no ícone.
+Chaves do `org.gnome.shell.extensions.dash-to-dock` aplicadas pelo `install-shell.sh`:
 
-Medições que levaram a esse valor: margem `0` deu passo de 68 px (12 px de espaço) e padding
-do ícone em 3 px deixou o dock apertado demais. Zerar o padding vertical do tile não mudou o
-passo, por isso a regra foi removida.
+| Chave | Valor | Motivo |
+|---|---|---|
+| `dash-max-icon-size` | `56` | medida-base do desenho |
+| `extend-height` | `true` | o dock ocupa 100% da área de trabalho; o trilho central estica e empurra o launcher para a base |
+| `custom-theme-shrink` | `false` | elimina o bloco `.left.shrink`, que duplicaria toda a matriz de seletores |
+| `height-fraction` | `1.0` | ignorado com `extend-height`, mantido coerente |
+| `running-indicator-style` | `DEFAULT` | `DOTS` desenha os pontos numa `St.DrawingArea` e não pode ser escondida por CSS |
 
-O seletor do Ubuntu Dock tem especificidade (2,3,0); o da extensão acrescenta o tipo
-(`StWidget.dash-item-container`, conferido em `dash.js` do `libshell-14.so`) para vencer sem
-depender da ordem de carga das folhas. As regras `:first-child`/`:last-child` do Ubuntu Dock
-(2,4,0) continuam zerando as pontas.
+**Geometria**, em coordenadas do monitor primário:
 
-A superfície do dock é deliberadamente reta: as regras geral e específica de `.dash-background`
-usam fundo contínuo `#1b1b1b`, `border: none`, `border-image: none` e `border-radius: 0`.
-O dock usa agora `assets/dock-chassis.svg`: uma superfície retangular escura com laterais neutras
-e brilho escuro discreto. Os pontos de execução junto aos ícones ficam ocultos; os acentos de
-hover/foco permanecem somente nos ícones. O painel e os fundos dos ícones permanecem com
-`border-radius: 0`; a linha contínua anterior não é aplicada.
+| Elemento | Valor |
+|---|---|
+| chassi | 88 px de largura, `[0, 88]`, encostado na borda esquerda |
+| altura | 100% da área de trabalho (abaixo do painel, até a base da tela) |
+| `.overview-icon` | 60x60 (`padding: 2px` em volta do ícone de 56) |
+| `.overview-tile` | 88x60 (`padding: 0 14px`) |
+| gap vertical | 16 px (`margin: 8px 0` no `.dash-item-container`) |
+| acabamento do topo | 8 px (`padding-top` do `#dashtodockDashContainer`) |
+| base do launcher | 88x88 (`padding: 14px` no `.show-apps`) |
+
+**A largura do chassi é derivada, não escolhida.** Ela sai de
+`.overview-icon + 2 × padding do tile`, mais a folga que a cadeia do `StScrollView` às vezes
+acrescenta entre o `#dashtodockDashContainer` e os tiles — que já foi de 4 px com ícones de 48 px e
+é zero com os atuais de 56 px. Todo arquivo do dock tem que ter exatamente a largura do nó em que é
+aplicado, então **ao mexer no tamanho do ícone, meça o chassi de novo** (perfil de pixel numa linha
+do trilho: as bordas `#383838` marcam as extremidades) e reajuste a largura dos SVGs.
+
+Regra de composição que evita o problema se espalhar: **só o `border-image` do chassi desenha
+borda, cantos e canais**, e ele mora no `.dash-background`, que ocupa a largura inteira. Os
+arquivos aplicados sobre nós menores desenham apenas o miolo — a placa da base
+(`dock-cap-bottom.svg`) é só o alojamento circular, sem borda nem cantos próprios.
+
+**Três regiões.** O topo é fixo, o centro é elástico e a base é fixa:
+
+1. `.dash-background` carrega `assets/dock-chassis-frame.svg` como `border-image` com fatias
+   `8 10 120 10`. A fatia de topo (8 px: a borda `#383838` e os emissores vermelhos onde os canais
+   de energia começam) é desenhada uma vez no topo, sem deformar; o resto do arquivo é a seção do
+   trilho, uniforme no eixo Y, e o St a estica/repete até o fim do dock — o centro cresce com a
+   quantidade de ícones sem distorcer nada. O topo é reto e o acabamento ocupa só 8 px, para o
+   primeiro ícone ficar colado no alto.
+2. A base é `assets/dock-cap-bottom.svg` aplicado como `background-image` do único
+   `.dash-item-container` filho direto do `#dashtodockDashContainer` — o botão Mostrar
+   aplicativos. Esse nó tem 88x88 fixos, exatamente o tamanho do arquivo, e desenha só o
+   alojamento circular em volta do ícone do Ubuntu. Como o dock tem altura cheia, o `StScrollView`
+   absorve a folga e essa base fica colada na borda de baixo da tela; entre o último ícone e
+   ela sobra o trilho esticado, com os canais de energia correndo até embaixo.
+3. Os estados (`dock-hover-plate.svg`, `dock-indicator-running.svg`,
+   `dock-indicator-focused.svg`, `dock-trash-separator.svg`) também são `background-image` em nós
+   de tamanho fixo e idêntico ao do arquivo.
+
+**Separador preso à lixeira.** O separador do próprio Ubuntu Dock (`.dash-separator`) é zerado,
+porque ele fica entre os grupos "favoritos/em execução" e "volumes montados + lixeira" — quando um
+volume é montado, o traço deixa de ficar em cima da lixeira. No lugar dele, o traço é
+`background-image` do `.dash-item-container:last-child` do `#dashtodockBoxContainer`, e a lixeira é
+sempre o último item (`dash.js` faz `newApps.push(trashApp)` depois dos volumes). Assim o traço
+acompanha a lixeira qualquer que seja a quantidade de ícones.
+
+O arquivo tem 88x94, a altura exata do nó: 14 px de `padding-top` mais os 80 px que o
+`.dash-item-container` da lixeira reserva para um tile de 60 px. Como imagem de fundo é
+centralizada, **essa altura precisa bater**; ao mexer no tamanho do ícone, meça o nó de novo
+(uma `background-color` de depuração na mesma regra mostra a caixa) e refaça o arquivo. Se
+`show-trash` for desligado, o traço passa a ficar sobre o último item existente.
+
+**Como o St trata imagem de fundo** (verificado nesta máquina, GNOME Shell 46, com folhas de
+teste e medição de pixel; vale para qualquer CSS da extensão):
+
+- `background-repeat` é ignorado. Toda `background-image` repete nos dois eixos.
+- A imagem é **centralizada** no nó, não ancorada no canto. Num nó de 84 px com imagem de 80 px
+  a imagem cai em `+2` e as bordas do arquivo aparecem duplicadas por causa da repetição.
+- Consequência: `background-image` só serve quando o nó tem tamanho fixo e igual ao do arquivo.
+  Para região elástica, use `border-image` (fatias em px; porcentagem não é aceita).
+- `background-size` aceita `auto`, `contain` e `cover`; percentuais (`100% 100%`) não.
+- `border-image` no St não segue o CSS: a fatia de topo vai no topo em tamanho natural, a faixa
+  do meio é desenhada uma vez em tamanho natural e a fatia de baixo preenche todo o resto. Por
+  isso o arquivo do chassi guarda o cap em cima e trilho no meio **e** embaixo.
+
+**Especificidade.** O bloco `.left` do Ubuntu Dock tem (2,3,0) e (2,4,0); o Yaru usa
+`box-shadow: ... !important` no anel de foco. As regras de geometria do dock usam `!important`
+(o Ubuntu Dock não usa nenhum), o que também resolve o empate com a extensão
+`forge-core-dock-spacing@sea`, que ainda põe `margin: 6px 0` no `.dash-item-container`.
+As regras ancoradas em `#dashtodockDashContainer >` vencem por id, sem `!important`.
+
+**Painel.** O topo do dock não desenha nenhuma alça decorativa: ela duplicava o botão Atividades
+(`#panelActivities`, as bolinhas de área de trabalho) que fica logo acima. Em vez disso o botão
+real é deslocado com `margin-left: 15px` para ficar centralizado na coluna do dock. O valor é
+medido — se a largura do chassi mudar, refaça a conta.
+
+**Estados.** Normal: só o chassi, sem placa atrás do ícone. Hover: `.overview-icon` em `#303030`
+com a placa `dock-hover-plate.svg` (borda `#383838` e dois ganchos vermelhos), transição de
+150 ms. Rodando: barra vermelha curta no canal de energia esquerdo. Foco: barra mais longa e
+mais clara, e `.overview-icon` em `#252525` — o vermelho nunca envolve o ícone. Os pontos de
+execução do GNOME ficam zerados e invisíveis.
 
 O estado de carregamento da bateria é sincronizado nos dois ícones criados pelo GNOME Shell:
 o `StIcon.quick-toggle-icon` do `.power-item` e o `StIcon.system-status-icon` do `.power-status`.
@@ -388,8 +462,13 @@ gnome-shell/forge-core-shell@forgecore.local/
 ├── extension.js
 ├── stylesheet.css          <- notificação, dropdown, Quick Settings e dock
 └── assets/
-    ├── dock-chassis.svg     <- chassi retangular glossy do dock esquerdo
-    └── dock-energy-rail.svg <- asset arquivado, não aplicado
+    ├── dock-chassis-frame.svg      <- border-image do chassi: cap superior + trilho
+    ├── dock-cap-bottom.svg         <- base mecânica com alojamento do launcher
+    ├── dock-hover-plate.svg        <- placa de hover atrás do ícone
+    ├── dock-indicator-running.svg  <- barra do app em execução
+    ├── dock-indicator-focused.svg  <- barra do app em foco
+    ├── dock-trash-separator.svg    <- traço acima da lixeira
+    └── dock-energy-rail.svg        <- asset arquivado, não aplicado
 gtk-3.0/
 └── forge-core-desktop-menu.css   <- menu do desktop
 ```
@@ -434,8 +513,11 @@ quando o estado for `charging`, pulso suave sem deslocamento de layout e retorno
 quando o carregador for removido. A barra superior e o ícone dentro do Quick Settings devem
 permanecer sincronizados.
 
-No dock à esquerda, conferir uma superfície vertical contínua, sem moldura, chanfros ou cantos
-arredondados. Hover, foco, separador e espaçamento entre ícones devem continuar funcionando.
+No dock à esquerda, conferir: chassi encostado na borda ocupando toda a altura, cap superior com a alça branca
+sem deformação, canais vermelhos discretos nas laterais, barra vermelha à esquerda dos apps em
+execução, placa de hover, separador acima da lixeira e o botão do Ubuntu encaixado no alojamento
+circular da base. Abrir e fechar aplicativos: o centro cresce e encolhe sem esticar os caps.
+Clique, clique direito, arrastar e soltar e tooltip continuam funcionando.
 
 ### Menu do desktop
 

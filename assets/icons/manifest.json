@@ -138,7 +138,9 @@
       "context": "apps",
       "name": "groove",
       "fill": 1.0,
-      "aliases": []
+      "aliases": [
+        "ConsoleIcon"
+      ]
     },
     {
       "source": "apps/vlc.png",

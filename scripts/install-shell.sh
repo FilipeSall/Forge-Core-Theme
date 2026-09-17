@@ -6,7 +6,13 @@ GTK_CSS_NAME="forge-core-desktop-menu.css"
 MARKER_BEGIN="/* forge-core:begin */"
 MARKER_END="/* forge-core:end */"
 DOCK_SETTINGS_SCHEMA="org.gnome.shell.extensions.dash-to-dock"
-DOCK_ICON_SIZE=56
+DOCK_SETTINGS=(
+  "dash-max-icon-size=56"
+  "extend-height=true"
+  "custom-theme-shrink=false"
+  "height-fraction=1.0"
+  "running-indicator-style='DEFAULT'"
+)
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SOURCE_EXT="${REPO_ROOT}/gnome-shell/${UUID}"
@@ -33,6 +39,21 @@ get_previous_dock_icon_size() {
     gsettings get "${DOCK_SETTINGS_SCHEMA}" dash-max-icon-size | awk '{print $NF}'
   else
     printf 'unavailable\n'
+  fi
+}
+
+dock_state_key() {
+  printf 'PREV_DOCK_%s' "$(printf '%s' "$1" | tr 'a-z-' 'A-Z_')"
+}
+
+capture_dock_setting() {
+  local key="$1" state_key
+  state_key="$(dock_state_key "${key}")"
+  grep -q "^${state_key}=" "${STATE_FILE}" && return 0
+  if gsettings writable "${DOCK_SETTINGS_SCHEMA}" "${key}" >/dev/null 2>&1; then
+    printf '%s=%s\n' "${state_key}" "$(gsettings get "${DOCK_SETTINGS_SCHEMA}" "${key}")" >> "${STATE_FILE}"
+  else
+    printf '%s=unavailable\n' "${state_key}" >> "${STATE_FILE}"
   fi
 }
 
@@ -73,6 +94,11 @@ if [[ -f "${STATE_FILE}" ]] && ! grep -q '^PREV_DASH_MAX_ICON_SIZE=' "${STATE_FI
   info "tamanho anterior do dock registrado no estado existente"
 fi
 
+for entry in "${DOCK_SETTINGS[@]}"; do
+  capture_dock_setting "${entry%%=*}"
+done
+ok "estado anterior do dock registrado em ${STATE_FILE}"
+
 rm -rf "${TARGET_EXT}"
 cp -a "${SOURCE_EXT}" "${TARGET_EXT}"
 find "${TARGET_EXT}" -type d -exec chmod 755 {} +
@@ -98,10 +124,12 @@ PY
 ok "${UUID} habilitada"
 
 if gsettings writable "${DOCK_SETTINGS_SCHEMA}" dash-max-icon-size >/dev/null 2>&1; then
-  gsettings set "${DOCK_SETTINGS_SCHEMA}" dash-max-icon-size "${DOCK_ICON_SIZE}"
-  ok "tamanho visual do dock ajustado para ${DOCK_ICON_SIZE}px"
+  for entry in "${DOCK_SETTINGS[@]}"; do
+    gsettings set "${DOCK_SETTINGS_SCHEMA}" "${entry%%=*}" "${entry#*=}"
+  done
+  ok "dock flutuante configurado (icones 48px, altura elastica, indicador proprio)"
 else
-  warn "Ubuntu Dock nao encontrado; tamanho visual nao foi ajustado"
+  warn "Ubuntu Dock nao encontrado; geometria do dock nao foi ajustada"
 fi
 
 install -m 644 "${SOURCE_GTK}" "${TARGET_GTK}"
