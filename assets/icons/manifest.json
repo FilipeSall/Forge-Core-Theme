@@ -89,6 +89,13 @@
       "aliases": []
     },
     {
+      "source": "apps/copyq.png",
+      "context": "apps",
+      "name": "copyq",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
       "source": "apps/filezilla.png",
       "context": "apps",
       "name": "filezilla",
