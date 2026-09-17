@@ -18,12 +18,12 @@ CACHE_DIR = Path('/home/sea/.cache/forge-core-wallpaper')
 STATE_FILE = CACHE_DIR / 'state.json'
 LOCK_FILE = CACHE_DIR / 'rotator.lock'
 ROTATION_SECONDS = 30 * 60
-POLL_SECONDS = 15
+POLL_SECONDS = 60
 DISPLAY_RE = re.compile(r'^(?P<name>\S+) connected(?: primary)? (?P<w>\d+)x(?P<h>\d+)\+(?P<x>-?\d+)\+(?P<y>-?\d+)')
 
 
 def displays() -> list[tuple[str, int, int, int, int]]:
-    result = subprocess.run(['xrandr', '--query'], check=True, text=True, capture_output=True)
+    result = subprocess.run(['xrandr', '--current'], check=True, text=True, capture_output=True)
     active = []
     for line in result.stdout.splitlines():
         match = DISPLAY_RE.match(line)
