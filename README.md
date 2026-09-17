@@ -37,7 +37,7 @@ Fora do escopo: RGB gamer, excesso de neon, cyberpunk decadente, steampunk vitor
 | **Notificações do GNOME Shell** | **v0.1 — instalado** |
 | **Dropdown de data/hora (calendário + lista)** | **v0.1 — instalado** |
 | **Menu de contexto do desktop (DING)** | **v0.1 — instalado** |
-| **Dock Forge Core (altura cheia) / Quick Settings / bateria** | **v0.3 — instalado** |
+| **Dock reto / Quick Settings / bateria** | **v0.2 — instalado** |
 | Overview / apps GTK | não iniciado |
 
 ## Estrutura
@@ -50,8 +50,6 @@ forge-core/
 │   └── apps/                  artes de aplicativos
 ├── assets/cursors/
 │   └── manifest.json          fonte da verdade: hotspots e nomes X de cada cursor
-├── assets/dock/
-│   └── floating-dock-reference/  pacote original do dock flutuante (referência de desenho)
 ├── icon-theme/Forge-Core/     tema de ícones gerado (versionado)
 ├── cursor-theme/Forge-Core-Cursor/   tema de cursor gerado (versionado)
 ├── gnome-shell/

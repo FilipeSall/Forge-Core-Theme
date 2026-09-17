@@ -6,13 +6,6 @@ GTK_CSS_NAME="forge-core-desktop-menu.css"
 MARKER_BEGIN="/* forge-core:begin */"
 MARKER_END="/* forge-core:end */"
 DOCK_SETTINGS_SCHEMA="org.gnome.shell.extensions.dash-to-dock"
-DOCK_KEYS=(
-  dash-max-icon-size
-  extend-height
-  custom-theme-shrink
-  height-fraction
-  running-indicator-style
-)
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 USER_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
@@ -44,23 +37,7 @@ fi
 
 gnome-extensions disable "${UUID}" >/dev/null 2>&1 || true
 
-restore_dock_setting() {
-  local key="$1" state_key value
-  state_key="PREV_DOCK_$(printf '%s' "${key}" | tr 'a-z-' 'A-Z_')"
-  [[ -f "${STATE_FILE}" ]] || return 0
-  value="$(sed -n "s/^${state_key}=//p" "${STATE_FILE}")"
-  [[ -z "${value}" || "${value}" == "unavailable" ]] && return 0
-  gsettings writable "${DOCK_SETTINGS_SCHEMA}" "${key}" >/dev/null 2>&1 || return 0
-  gsettings set "${DOCK_SETTINGS_SCHEMA}" "${key}" "${value}"
-  ok "dock: ${key} restaurado para ${value}"
-}
-
-for key in "${DOCK_KEYS[@]}"; do
-  restore_dock_setting "${key}"
-done
-
-if ! grep -q '^PREV_DOCK_DASH_MAX_ICON_SIZE=' "${STATE_FILE}" 2>/dev/null && \
-   [[ "${PREV_DASH_MAX_ICON_SIZE}" =~ ^[0-9]+$ ]] && \
+if [[ "${PREV_DASH_MAX_ICON_SIZE}" =~ ^[0-9]+$ ]] && \
    gsettings writable "${DOCK_SETTINGS_SCHEMA}" dash-max-icon-size >/dev/null 2>&1; then
   gsettings set "${DOCK_SETTINGS_SCHEMA}" dash-max-icon-size "${PREV_DASH_MAX_ICON_SIZE}"
   ok "tamanho anterior do dock restaurado (${PREV_DASH_MAX_ICON_SIZE}px)"
