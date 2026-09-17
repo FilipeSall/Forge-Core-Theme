@@ -89,6 +89,53 @@
       "aliases": []
     },
     {
+      "source": "apps/filezilla.png",
+      "context": "apps",
+      "name": "filezilla",
+      "fill": 1.0,
+      "aliases": [
+        "FileZilla"
+      ]
+    },
+    {
+      "source": "apps/gthumb.png",
+      "context": "apps",
+      "name": "gthumb",
+      "fill": 1.0,
+      "aliases": [
+        "gThumb"
+      ]
+    },
+    {
+      "source": "apps/hubstaff.png",
+      "context": "apps",
+      "name": "hubstaff",
+      "fill": 1.0,
+      "aliases": [
+        "Hubstaff"
+      ]
+    },
+    {
+      "source": "apps/python.png",
+      "context": "apps",
+      "name": "python3.12",
+      "fill": 1.0,
+      "aliases": [
+        "python",
+        "idle",
+        "idle-python3.12"
+      ]
+    },
+    {
+      "source": "apps/vlc.png",
+      "context": "apps",
+      "name": "vlc",
+      "fill": 1.0,
+      "aliases": [
+        "VLC"
+      ]
+    },
+    {
       "source": "apps/vscode.png",
       "context": "apps",
       "name": "vscode",
