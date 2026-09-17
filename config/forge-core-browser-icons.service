@@ -1,0 +1,14 @@
+# Forge Core managed: browser launcher icon watcher
+[Unit]
+Description=Forge Core: launcher icon overrides
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 @WATCHER_SCRIPT@
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

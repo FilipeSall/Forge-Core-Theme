@@ -29,7 +29,7 @@ Fora do escopo: RGB gamer, excesso de neon, cyberpunk decadente, steampunk vitor
 | Icon theme — Downloads | v0.1 — instalado |
 | Icon theme — Documentos / Músicas / Imagens / Vídeos | reservado |
 | Icon theme — app `Configurar monitor HDMI` | v0.1 — instalado |
-| **Icon theme — apps do dock (Chrome, Warp, VS Code, Postman, Beekeeper, Stitch, Discord, Orca, Nautilus, Editor de Texto, lixeira)** | **v0.1 — instalado** |
+| **Icon theme — apps (Chrome, Warp, VS Code, Postman, Beekeeper, Stitch, Discord, Orca, Nautilus, Editor de Texto, App Center, volume, teclado, Vim, Writer, energia, drivers, Relógios, Ajuda, Firefox, Brave, Safari, Monitor do Sistema, Visualizador de Imagem, lixeira)** | **v0.1 — instalado** |
 | **Cursor theme — seta** | **v0.1 — instalado** |
 | **Cursor theme — mão, texto, espera, cruz, grab/grabbing** | **v0.2 — instalado** |
 | **Cursor theme — redimensionar (lados, cantos, linhas, colunas)** | **v0.3 — instalado** |
@@ -37,7 +37,7 @@ Fora do escopo: RGB gamer, excesso de neon, cyberpunk decadente, steampunk vitor
 | **Notificações do GNOME Shell** | **v0.1 — instalado** |
 | **Dropdown de data/hora (calendário + lista)** | **v0.1 — instalado** |
 | **Menu de contexto do desktop (DING)** | **v0.1 — instalado** |
-| **Dock Forge Core (altura cheia) / Quick Settings / bateria** | **v0.3 — instalado** |
+| **Dock Forge Core (altura cheia) / Quick Settings / bateria / toggle Yaru ↔ Forge Core** | **v0.4 — instalado** |
 | Overview / apps GTK | não iniciado |
 
 ## Estrutura
@@ -61,6 +61,8 @@ forge-core/
 │   └── forge-core-desktop-menu.css         menu de contexto do desktop (DING, GTK3)
 ├── gtk-4.0/
 │   └── forge-core-nautilus-thumbnails.css  pastas com ícone próprio sem fundo xadrez no Nautilus
+├── config/
+│   └── forge-core-browser-icons.service    template do watcher systemd --user
 ├── scripts/
 │   ├── build-icons.py         assets + manifest -> icon-theme/
 │   ├── build-cursors.py       assets + manifest -> cursor-theme/
@@ -68,11 +70,15 @@ forge-core/
 │   ├── uninstall-cursors.sh   restaura o cursor anterior e remove
 │   ├── install-icons.sh       icon-theme/ -> ~/.local/share/icons + aplica
 │   ├── uninstall-icons.sh     restaura o tema anterior e remove
+│   ├── apply-browser-icons.py launchers com Icon absoluto -> nomes do tema
+│   ├── restore-browser-icons.py restaura esses launchers
+│   ├── watch-browser-icons.py detecta novos launchers APT/Snap/Flatpak
 │   ├── install-shell.sh       extensão + css do menu -> HOME + aplica
 │   ├── uninstall-shell.sh     remove e devolve o visual Yaru
 │   ├── apply-browser-cursors.py         Google Chrome com o cursor do sistema (Yaru)
 │   ├── restore-browser-cursors.py       devolve o cursor Forge Core ao Chrome
 │   ├── apply-folder-chooser-icons.py    metadata::custom-icon -> miniaturas do seletor GTK
+│   ├── special_folder_icons.py          ícones por nome de pasta, somente no Forge Core
 │   └── restore-folder-chooser-icons.py  remove as miniaturas e o timer
 └── docs/
     ├── identidade-visual.md   a fonte da verdade da identidade Forge Core
@@ -88,6 +94,7 @@ forge-core/
 ```bash
 python3 scripts/build-icons.py
 ./scripts/install-icons.sh     # reverter: ./scripts/uninstall-icons.sh
+# install-icons.sh também habilita o watcher systemd --user
 ```
 
 Cursores:
@@ -106,8 +113,22 @@ Notificações, dropdown de data/hora, bateria, Quick Settings, dock e menu do d
 
 Ícones customizados de pasta no seletor "Abrir pasta" (portal GNOME, GTK, VS Code):
 
+`./scripts/install-icons.sh` aplica essa integração automaticamente enquanto o
+Forge Core está ativo e um sincronizador acompanha a troca para Yaru. Ao
+desligar o tema, as miniaturas são removidas. Para operar manualmente:
+
 ```bash
-./scripts/apply-folder-chooser-icons.py --timer   # reverter: ./scripts/restore-folder-chooser-icons.py
+./scripts/apply-folder-chooser-icons.py --timer
+./scripts/restore-folder-chooser-icons.py
+```
+
+Pastas chamadas `documentos`, `downloads`, `home`, `homework` ou `projetos` recebem os
+assets dedicados em qualquer localização acessível do sistema, sem diferenciar maiúsculas e
+minúsculas. Um ícone manual já existente tem prioridade. O sincronizador roda na ativação do
+tema e diariamente:
+
+```bash
+python3 scripts/special_folder_icons.py --dry-run
 ```
 
 A identidade completa (paleta, tipografia, estilo de ícones, cursores, princípios) está em

@@ -13,6 +13,16 @@ Esta integração gera essa miniatura para cada pasta que tem
 `metadata::custom-icon`. A metadata continua sendo a fonte da verdade; nada do
 sistema, do tema Forge-Core ou do Yaru/Adwaita é alterado.
 
+Enquanto o Forge Core está ativo, `scripts/special_folder_icons.py` atribui automaticamente
+os cinco assets dedicados às pastas com nomes `documentos`, `downloads`, `home`, `homework` e
+`projetos`, em qualquer localização acessível. A comparação não diferencia maiúsculas e
+minúsculas. Os nove assets de projetos (`claude`, `codex`, `forge-core`, `gdf-cluster-2`,
+`gemini`, `hjlog`, `negocia-df`, `papelito` e `sea`) são aplicados somente na árvore
+`/home/sea/projetos`; `negocia`
+é aceito como alias de `negocia-df`. Um `metadata::custom-icon` manual tem prioridade quando o
+arquivo apontado existe; URIs `file://` quebrados usam o asset Forge correspondente como
+fallback. Ao desativar o tema, somente os metadados atribuídos pelo Forge Core são removidos.
+
 | Alternativa | Resultado no seletor |
 |---|---|
 | `metadata::custom-icon` (GVfs) | ignorado pelo GTK |
@@ -28,6 +38,7 @@ sistema, do tema Forge-Core ou do Yaru/Adwaita é alterado.
 ./scripts/apply-folder-chooser-icons.py            # varre $HOME até profundidade 6
 ./scripts/apply-folder-chooser-icons.py --dry-run  # só lista
 ./scripts/apply-folder-chooser-icons.py --timer    # + timer systemd --user semanal
+./scripts/apply-folder-chooser-icons.py --deactivate # remove a integração gerada
 ```
 
 Aceita raízes e `--depth N`. É idempotente: reescreve as miniaturas próprias e
@@ -38,6 +49,21 @@ pré-existente que não seja do Forge Core é movida para
 leva `tEXt Software=forge-core-folder-chooser-icons`.
 
 O efeito é imediato na próxima abertura do seletor.
+
+Um sincronizador de sessão também observa a chave
+org.gnome.desktop.interface/icon-theme, cobrindo trocas feitas pelo botão do
+Forge, pelas configurações do GNOME ou por outro aplicativo. Se o tema ativo
+não for Forge-Core, o script não gera miniaturas e remove as que pertencem ao
+Forge Core. Em todos os casos, metadata::custom-icon permanece intacto,
+portanto o comportamento é exclusivo do tema.
+
+`scripts/install-icons.sh` aplica essa integração automaticamente quando o
+`icon-theme` ativo é `Forge-Core`. Ao desligar o tema pela extensão, o serviço
+de limpeza remove as miniaturas e o CSS gerados; ao ligar novamente, o serviço
+de aplicação os recria. Se o tema ativo não for `Forge-Core`, o script não
+gera miniaturas e remove as que pertencem ao Forge Core. Em todos os casos,
+`metadata::custom-icon` permanece intacto, portanto o comportamento é exclusivo
+do tema.
 
 ## Efeito colateral no Nautilus
 

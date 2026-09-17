@@ -8,8 +8,11 @@ Forge Core.
 
 from __future__ import annotations
 
+import os
 import shutil
+import stat
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -32,6 +35,39 @@ def abort(message: str) -> None:
     raise SystemExit(1)
 
 
+def is_regular_file(path: Path) -> bool:
+    try:
+        return not path.is_symlink() and path.is_file() and stat.S_ISREG(path.stat().st_mode)
+    except OSError:
+        return False
+
+
+def atomic_write(path: Path, content: str) -> None:
+    """Write a launcher atomically, refusing to follow a symlink."""
+    if path.is_symlink():
+        raise OSError(f"recusado escrever em symlink: {path}")
+    mode = stat.S_IMODE(path.stat().st_mode) if is_regular_file(path) else 0o644
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.chmod(temporary, mode)
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def entry_index(lines: list[str]) -> int | None:
+    for index, line in enumerate(lines):
+        if line.strip() == "[Desktop Entry]":
+            return index
+    return None
+
+
 def system_theme() -> str:
     theme = PREVIOUS_THEME_FILE.read_text(encoding="utf-8").strip() if PREVIOUS_THEME_FILE.is_file() else ""
     if theme and theme != FORGE_THEME and (SYSTEM_ICONS / theme).is_dir():
@@ -44,21 +80,33 @@ def is_chrome_exec(line: str) -> bool:
 
 
 def chrome_launchers() -> list[Path]:
-    return sorted(
-        path for path in APPLICATIONS.glob("*.desktop")
-        if any(is_chrome_exec(line) for line in path.read_text(encoding="utf-8").splitlines())
-    )
+    found: list[Path] = []
+    for path in APPLICATIONS.glob("*.desktop"):
+        if not is_regular_file(path):
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except (OSError, UnicodeDecodeError):
+            continue
+        if any(is_chrome_exec(line) for line in lines):
+            found.append(path)
+    return sorted(found)
 
 
 def copy_system_launchers() -> None:
     for name in SYSTEM_LAUNCHERS:
         source = SYSTEM_APPLICATIONS / name
         target = APPLICATIONS / name
-        if source.is_file() and not target.exists():
-            lines = source.read_text(encoding="utf-8").splitlines(keepends=True)
-            lines.insert(lines.index("[Desktop Entry]\n") + 1, f"{COPIED_MARKER}\n")
-            target.write_text("".join(lines), encoding="utf-8")
-            print(f"copiado: {source} -> {target}")
+        if not is_regular_file(source) or target.exists() or target.is_symlink():
+            continue
+        lines = source.read_text(encoding="utf-8").splitlines(keepends=True)
+        index = entry_index(lines)
+        if index is None:
+            print(f"ignorado: {source} sem [Desktop Entry]", file=sys.stderr)
+            continue
+        lines.insert(index + 1, f"{COPIED_MARKER}\n")
+        atomic_write(target, "".join(lines))
+        print(f"copiado: {source} -> {target}")
 
 
 def patch_launcher(path: Path, add: bool) -> bool:
@@ -72,7 +120,7 @@ def patch_launcher(path: Path, add: bool) -> bool:
             lines[index] = "Exec=" + line[len(EXEC_PREFIX):]
             changed = True
     if changed:
-        path.write_text("".join(lines), encoding="utf-8")
+        atomic_write(path, "".join(lines))
     return changed
 
 

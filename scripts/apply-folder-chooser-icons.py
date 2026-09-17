@@ -15,7 +15,18 @@ def main() -> None:
     parser.add_argument("--depth", type=int, default=icons.DEFAULT_DEPTH, help="profundidade maxima")
     parser.add_argument("--dry-run", action="store_true", help="lista o que seria feito, sem gravar")
     parser.add_argument("--timer", action="store_true", help="instala timer systemd --user semanal")
+    parser.add_argument(
+        "--deactivate",
+        action="store_true",
+        help="remove as miniaturas geradas e o CSS do Forge Core",
+    )
     args = parser.parse_args()
+
+    if args.deactivate:
+        if args.roots or args.dry_run or args.timer:
+            parser.error("--deactivate nao pode ser combinado com raizes, --dry-run ou --timer")
+        icons.deactivate()
+        return
 
     roots = [root.expanduser().resolve() for root in args.roots] or [Path.home()]
     explicit_roots = [str(root) for root in roots] if args.roots else []

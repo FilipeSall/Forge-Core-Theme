@@ -1,8 +1,9 @@
 # Forge Core — GNOME Shell e menu do desktop
 
-Cobre três componentes: o **banner de notificação**, o **dropdown de data/hora**
-(calendário + lista de notificações) e o **menu de contexto do desktop** (botão direito na
-área de trabalho, e também sobre um ícone). Nada mais do shell é tocado.
+Cobre quatro componentes: o **banner de notificação**, o **dropdown de data/hora**
+(calendário + lista de notificações), o **menu de contexto do desktop** (botão direito na
+área de trabalho, e também sobre um ícone) e o **toggle de tema Yaru ↔ Forge Core** no
+Quick Settings.
 
 ## Ambiente alvo (detectado em 2026-09-15)
 
@@ -244,9 +245,25 @@ teste e medição de pixel; vale para qualquer CSS da extensão):
 - Consequência: `background-image` só serve quando o nó tem tamanho fixo e igual ao do arquivo.
   Para região elástica, use `border-image` (fatias em px; porcentagem não é aceita).
 - `background-size` aceita `auto`, `contain` e `cover`; percentuais (`100% 100%`) não.
-- `border-image` no St não segue o CSS: a fatia de topo vai no topo em tamanho natural, a faixa
-  do meio é desenhada uma vez em tamanho natural e a fatia de baixo preenche todo o resto. Por
-  isso o arquivo do chassi guarda o cap em cima e trilho no meio **e** embaixo.
+- `border-image` **é** 9-slice padrão: os quatro cantos saem em tamanho natural, as bordas
+  esticam ao longo do próprio eixo e o miolo estica nos dois. Medido em 2026-09-17 com um SVG
+  de bandas coloridas aplicado no `#panel` e perfil de pixel.
+- **Use sempre a forma de um valor só** (`border-image: url(x.svg) 16`). Com quatro valores
+  (`4 16 4 16`) a fatia da **esquerda** sai esticada — num `#panel` de 1920 px uma fatia de
+  16 px foi desenhada com 104 px. Topo, direita e base saíram corretos. Medido no mesmo teste.
+  Como os arquivos do Forge são uniformes no eixo que não tem detalhe, um valor único basta.
+- O `border-width` **não** entra na conta: as fatias são desenhadas no tamanho natural mesmo com
+  `border: none`. Logo o `border-image` não reserva espaço de layout.
+- Truque das duas linhas de folga: para um nó cuja altura pode mudar (o painel é `2.2em`), o
+  arquivo tem 34 px e as fatias 16/16. Com o painel em 32 px o miolo tem altura zero e o desenho
+  sai 1:1; se a altura mudar, só as duas linhas centrais — deliberadamente uniformes — esticam.
+
+**Seletor com duas classes encadeadas mais pseudo-classe não casa.** `StWidget.panel-button.clock-display`
+funciona, `StWidget.panel-button.clock-display:hover` **não** — a regra é simplesmente ignorada.
+Confirmado trocando por `StWidget.clock-display:hover`, que passou a valer no mesmo instante.
+Quando precisar de estado num nó que já é alvo de uma regra genérica, use **uma** classe e
+`!important` (qualquer `!important` vence qualquer regra sem `!important`, independente de
+especificidade) em vez de encadear classes.
 
 **Especificidade.** O bloco `.left` do Ubuntu Dock tem (2,3,0) e (2,4,0); o Yaru usa
 `box-shadow: ... !important` no anel de foco. As regras de geometria do dock usam `!important`
@@ -254,10 +271,15 @@ teste e medição de pixel; vale para qualquer CSS da extensão):
 `forge-core-dock-spacing@sea`, que ainda põe `margin: 6px 0` no `.dash-item-container`.
 As regras ancoradas em `#dashtodockDashContainer >` vencem por id, sem `!important`.
 
-**Painel.** O topo do dock não desenha nenhuma alça decorativa: ela duplicava o botão Atividades
-(`#panelActivities`, as bolinhas de área de trabalho) que fica logo acima. Em vez disso o botão
-real é deslocado com `margin-left: 15px` para ficar centralizado na coluna do dock. O valor é
-medido — se a largura do chassi mudar, refaça a conta.
+**O dock não tem mais cap no topo.** `dock-chassis-frame.svg` virou um trilho uniforme no eixo Y:
+paredes `#383838`, rebaixos `#111111`, canais `#fc435a` e corpo, e nada mais. Quem fecha a coluna
+em cima agora é o **header** — a cabeça da coluna é desenhada dentro da barra superior e a seção
+atravessa a fronteira sem emenda (ver *Barra superior*). Por isso as fatias caíram para
+`border-image: … 10` (um valor só) e os emissores vermelhos que ficavam no topo do dock foram
+movidos para dentro da cabeça, no header.
+
+O botão Atividades continua deslocado (`margin-left: 10px`) para ficar centralizado na coluna de
+88 px. O valor é medido — se a largura do chassi mudar, refaça a conta.
 
 **Estados.** Normal: só o chassi, sem placa atrás do ícone. Hover: `.overview-icon` em `#303030`
 com a placa `dock-hover-plate.svg` (borda `#383838` e dois ganchos vermelhos), transição de
@@ -272,6 +294,89 @@ recebem o raio vermelho e um pulso de opacidade de 900 ms, sem alterar layout ou
 
 Para medir de novo, capture a tela e compare o topo de ícones consecutivos que ocupam 100% da
 altura (Chrome, VS Code, Editor de Texto): a diferença é o passo, e passo − 56 é o espaço.
+
+### Barra superior — GNOME Shell (St / CSS do shell)
+
+O header é a **peça horizontal do mesmo chassi do dock**. Não é "barra preta com linha vermelha":
+é a mesma seção industrial do trilho vertical, girada, com a cabeça da coluna desenhada dentro
+dela. Olhando a tela inteira lê-se **uma estrutura em L**, não um dock mais uma top bar.
+
+**Geometria medida** (monitor primário, 96 dpi, fonte 11 pt):
+
+| Elemento | Valor |
+|---|---|
+| altura do painel | 32 px (`height: 2.2em` do Yaru; o `border-bottom` antigo somava 1 px e foi removido) |
+| junção (`#panelLeft`) | 96 px: 88 px de cabeça de coluna + 8 px de trilho |
+| coluna do dock | 88 px, começando em `y = 32` |
+| fatia direita do trilho | 16 px |
+
+**Seção do trilho** (32 linhas, de cima para baixo). É a mesma gramática do dock — parede,
+canal de energia, rebaixo, corpo — só que o header tem uma borda livre (a de baixo) e a de cima
+é a borda da tela, por isso o empilhamento é assimétrico:
+
+| Linha | Cor | Papel |
+|---|---|---|
+| 0 | `#383838` | parede externa (topo) |
+| 1–2 | `#2b2b2b` / `#222222` | chanfro de luz |
+| 3 | `#111111` | rebaixo interno |
+| 4–26 | gradiente `#262626` → `#1d1d1d` → `#212121` | corpo; é aqui que ficam texto e ícones |
+| 27–28 | `#111111` | rebaixo interno |
+| 29–30 | `#5f272e` | canal de energia |
+| 31 | `#383838` | parede externa (base) |
+
+O corpo do trilho foi calibrado contra o dock: a média do gradiente tem que ficar perto da média
+da seção transversal do dock (≈ 32), senão a viga horizontal lê mais escura que o montante e as
+duas param de parecer a mesma peça. Foi medido nos dois — dock em `y` livre de ícone, header em
+`x` livre de módulo.
+
+O canal é uma **cor sólida**, não `#fc435a` com opacidade: `#5f272e` é exatamente o que o filamento
+do dock produz na tela (`rgb(94,42,48)`, medido). Declarar a mistura pronta garante paridade de
+brilho entre o canal horizontal e os verticais sem depender de como o rsvg antialiasa a fatia.
+Se mexer num, refaça a medida do outro.
+
+**Junção.** `header-junction.svg` tem 96 px e é aplicado no `#panelLeft` com `min-width: 96px`.
+Como a largura do nó é igual à do arquivo, o 9-slice sai **1:1** e cada pixel cai no lugar. Os
+88 px da esquerda repetem a seção transversal do dock **na mesma coordenada** — paredes em
+`x 0–1` e `x 86–87`, rebaixos em `x 7–8` e `x 79–80`, canais em `x 3–6`/`x 81–84` com filamento
+em `x 4,3` e `x 82,3`. O resultado é que a emenda header/dock **não existe em pixel**: uma coluna
+de imagem lida em `y = 30` é idêntica à mesma coluna em `y = 34`.
+
+A coluna é **aberta embaixo** (não tem parede de base entre `x 0` e `x 88`) e **fechada em cima**
+pela parede `#383838` da linha 0: a estrutura nasce na borda da tela e desce até o fim do dock.
+O rebaixo da cabeça forma um colchete com cantos chanfrados a 3,5 px, e os canais vermelhos só
+começam em `y = 8` com uma cabeça mais clara (o emissor que antes ficava no topo do dock).
+
+Nos 8 px restantes (`x 88–95`) começa o trilho horizontal, e é ali que mora o único detalhe
+vermelho da conexão: o canal entra em `#8c2f3b` encostado na parede da coluna e cai para
+`#5f272e` até `x = 96`. Energia entrando na viga a partir do montante.
+
+**Módulos.** Relógio e área de status são a **mesma peça** (`header-bay.svg`), uma baia rebaixada
+encaixada no chassi: placa `#131313` → `#191919` com chanfro de 6 px nas pontas, contorno
+`#383838`, sombra interna `#0e0e0e` no lábio de cima, luz `#2c2c2c` no de baixo e um filamento
+vermelho vertical de 1,4 px em cada extremidade — o mesmo traço dos canais do dock.
+
+| Nó | Arquivo | Quando |
+|---|---|---|
+| `#panelRight` | `header-bay.svg` | sempre (agrupa appindicators, teclado e Quick Settings) |
+| `StWidget.clock-display` | `header-bay.svg` / `-hover` / `-active` | relógio, por estado |
+| `.panel-button` | `header-cell.svg` | `:hover` |
+| `.panel-button` | `header-cell-active.svg` | `:focus`, `:active` (menu aberto), `:checked` |
+
+A célula (`header-cell*.svg`) é menor que a baia de propósito: um botão em hover acende **dentro**
+do módulo, sem competir com ele. A variante ativa ganha uma barra `#fc435a` na base — é o indicador
+de "menu aberto" e também o anel de foco de teclado, já que o anel laranja do Yaru foi zerado.
+
+Todos os arquivos de módulo têm 48×34 e usam `border-image: … 16`: as pontas saem em tamanho
+natural e o miolo — uniforme no eixo X — estica. Por isso a baia do relógio (168 px) e a da
+bandeja (224 px) saem do mesmo arquivo sem distorção, e a barra funciona em qualquer largura.
+
+**Nada vira imagem.** Todos os controles continuam sendo os widgets do GNOME; os SVGs entram só
+como `border-image`. Clique, menus, tooltips, navegação por teclado e os ícones de rede, áudio,
+bateria e Bluetooth ficam intactos — nenhum ícone de status é recolorido.
+
+**Tela de bloqueio.** Em `unlock-screen`/`login-screen` o `#panelLeft` perde a junção
+(`min-width: 0; border-image: none`): sem dock embaixo, uma cabeça de coluna solta não faria
+sentido. O trilho e as baias continuam.
 
 ## Estratégia de aplicação
 
@@ -332,6 +437,23 @@ O `gtk.css` recebe apenas um bloco delimitado:
 
 O `@import` fica no topo porque CSS exige `@import` antes de qualquer regra. O desinstalador
 remove só esse bloco; se o arquivo já existia antes, ele é restaurado de backup.
+
+### Alternância completa Yaru ↔ Forge Core
+
+O toggle `Tema` controla a identidade inteira, não apenas o `icon-theme`:
+
+| Forge Core ativo | Yaru ativo |
+|---|---|
+| `stylesheet.css` do Forge carregado no GNOME Shell | stylesheet do Forge descarregado; Yaru volta a desenhar menus e dropdowns |
+| `gtk.css` importa `forge-core-desktop-menu.css` | import do menu Forge removido |
+| ícones do painel/Quick Settings (bateria, rede, volume e Bluetooth) e cursor `Forge-Core` | ícones do painel/Quick Settings e cursor `Yaru` |
+| rotator de wallpaper, watcher de launchers e timer de pastas ativos | autostart, watcher e timer desabilitados e parados |
+| background Forge preservado | background anterior restaurado (ou default do GNOME se não houver backup) |
+
+Ao voltar para Forge, o background atual do Yaru é salvo, o estado de rotação anterior é
+invalidado e uma nova imagem é aplicada imediatamente. O rotator também verifica o modo e
+o background atual antes de cada ciclo; portanto, mesmo se for iniciado pelo autostart durante
+o login, ele encerra imediatamente em Yaru e corrige um fundo Yaru residual ao entrar no Forge.
 
 ## Desenho
 
@@ -460,9 +582,16 @@ Fontes no repositório:
 gnome-shell/forge-core-shell@forgecore.local/
 ├── metadata.json
 ├── extension.js
-├── stylesheet.css          <- notificação, dropdown, Quick Settings e dock
+├── stylesheet.css          <- notificação, dropdown, Quick Settings, header e dock
 └── assets/
-    ├── dock-chassis-frame.svg      <- border-image do chassi: cap superior + trilho
+    ├── header-rail.svg             <- seção horizontal do chassi (border-image do #panel)
+    ├── header-junction.svg         <- cabeça da coluna + entrada do trilho (#panelLeft, 96 px)
+    ├── header-bay.svg              <- baia rebaixada: relógio e área de status
+    ├── header-bay-hover.svg        <- baia do relógio em hover
+    ├── header-bay-active.svg       <- baia do relógio com o menu aberto
+    ├── header-cell.svg             <- célula de hover de um panel-button
+    ├── header-cell-active.svg      <- célula de foco / menu aberto, com barra vermelha
+    ├── dock-chassis-frame.svg      <- border-image do chassi: trilho uniforme, sem cap
     ├── dock-cap-bottom.svg         <- base mecânica com alojamento do launcher
     ├── dock-hover-plate.svg        <- placa de hover atrás do ícone
     ├── dock-indicator-running.svg  <- barra do app em execução
@@ -513,11 +642,39 @@ quando o estado for `charging`, pulso suave sem deslocamento de layout e retorno
 quando o carregador for removido. A barra superior e o ícone dentro do Quick Settings devem
 permanecer sincronizados.
 
+O primeiro item é o toggle `Tema`. Desligado, ele usa o Yaru completo; ligado, usa o Forge
+Core, força `Yaru-dark` + `prefer-dark` e oculta o toggle nativo `Dark Style`. Ao voltar para
+Yaru, a aparência anterior é restaurada, o background Forge e suas automações são parados,
+e `Dark Style` reaparece. A escolha fica registrada em
+`~/.local/share/forge-core/icon-theme-mode`, para que uma troca externa de aparência não
+desative o Forge Core silenciosamente.
+
 No dock à esquerda, conferir: chassi encostado na borda ocupando toda a altura, cap superior com a alça branca
 sem deformação, canais vermelhos discretos nas laterais, barra vermelha à esquerda dos apps em
 execução, placa de hover, separador acima da lixeira e o botão do Ubuntu encaixado no alojamento
 circular da base. Abrir e fechar aplicativos: o centro cresce e encolhe sem esticar os caps.
 Clique, clique direito, arrastar e soltar e tooltip continuam funcionando.
+
+### Barra superior
+
+Olhe a quina onde o dock encontra a barra: a emenda não pode existir. Confirme por pixel, não a
+olho — recorte a coluna `x = 4` (o filamento vermelho) e compare `y = 30` com `y = 34`; os dois
+têm que dar `rgb(94,42,48)`. O mesmo vale para `x = 0/1`, `x = 7/8`, `x = 79/80` e `x = 86/87`.
+
+Depois: passe o mouse no relógio (a baia clareia), clique (a baia acende e ganha barra vermelha na
+base), abra o Quick Settings (a célula acende **dentro** da baia da bandeja), e confira que rede,
+áudio, bateria e Bluetooth continuam com a cor e a forma de sempre. Abra a Visão geral — o chassi
+continua igual e a junção segue alinhada.
+
+Para largura diferente sem trocar de máquina, mova o monitor primário e volte:
+
+```bash
+xrandr --output HDMI-A-0 --primary   # painel vai para a tela menor
+xrandr --output eDP --primary        # volta
+```
+
+A junção tem que sair nos mesmos 96 px e a emenda continuar invisível; só o trilho do meio muda
+de comprimento.
 
 ### Menu do desktop
 
@@ -544,9 +701,11 @@ path do item que a ancora. Por isso `menu.desktopmenu menu` casa.
 
 ## Escopo e efeitos colaterais
 
-Fora de escopo e não tocados: overview, apps GTK, Nautilus e tela de login. Quick Settings,
-bateria, dock e painel superior são estilizados pela extensão; o menu de contexto do desktop
-continua na camada GTK3 do DING.
+Fora de escopo e não tocados: tela de login e o tema global do sistema. Quick Settings, bateria,
+dock e barra superior são estilizados pela extensão — na Visão geral o chassi do header é mantido
+de propósito, para a estrutura em L não sumir ao abrir o overview; o menu de contexto do
+desktop continua na camada GTK3 do DING. A alternância também remove o overlay GTK3 do Forge
+e controla os automatismos de wallpaper, launchers e pastas.
 
 Dois pontos de compartilhamento merecem registro:
 

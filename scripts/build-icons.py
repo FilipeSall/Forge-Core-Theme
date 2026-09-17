@@ -19,6 +19,20 @@ def load_manifest():
         return json.load(handle)
 
 
+def validate_manifest(manifest):
+    """Reject duplicate canonical names/aliases before rebuilding the theme."""
+    seen = {}
+    for icon in manifest.get("icons", []):
+        names = [icon["name"], *icon.get("aliases", [])]
+        for name in names:
+            previous = seen.get(name)
+            if previous is not None:
+                raise SystemExit(
+                    f"nome de icone duplicado: {name} ({previous} e {icon['source']})"
+                )
+            seen[name] = icon["source"]
+
+
 def content_bbox(image, threshold):
     alpha = image.split()[-1].point(lambda v: 255 if v > threshold else 0)
     bbox = alpha.getbbox()
@@ -124,6 +138,7 @@ def write_index_theme(theme_root, manifest):
 
 def build():
     manifest = load_manifest()
+    validate_manifest(manifest)
     theme_root = os.path.join(REPO, "icon-theme", manifest["theme"]["directory"])
 
     if os.path.isdir(theme_root):

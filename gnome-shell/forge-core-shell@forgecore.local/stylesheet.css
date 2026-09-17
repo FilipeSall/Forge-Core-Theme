@@ -836,33 +836,108 @@ StBoxLayout.quick-toggle-menu {
 
 StWidget#panel {
     background-color: #1b1b1b;
-    border-bottom: 1px solid #383838;
+    border: none;
+    border-image: url("assets/header-rail.svg") 16;
     font-family: Oxanium, IBM Plex Sans, sans-serif;
     font-weight: 500;
 }
 
+#panel #panelLeft {
+    min-width: 96px;
+    border-image: url("assets/header-junction.svg") 16;
+}
+
+#panel.unlock-screen #panelLeft,
+#panel.login-screen #panelLeft {
+    min-width: 0;
+    border-image: none;
+}
+
+#panel #panelRight {
+    padding-left: 12px;
+    border-image: url("assets/header-bay.svg") 16;
+}
+
 #panel StWidget.panel-button#panelActivities {
-    margin-left: 15px;
+    margin-left: 10px;
+}
+
+#panel StWidget#panelActivities StBoxLayout {
+    padding: 0 2px;
+    spacing: 4px;
 }
 
 #panel StWidget.panel-button {
     color: #ffffff;
-    border-radius: 2px;
-    box-shadow: inset 0 0 0 100px transparent;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    border-image: none;
+    box-shadow: none;
+    transition-duration: 150ms;
 }
 
-#panel StWidget.panel-button:hover,
-#panel StWidget.panel-button:focus {
+#panel StWidget.panel-button:hover {
     color: #ffffff;
-    box-shadow: inset 0 0 0 100px rgba(252, 67, 90, 0.16);
+    box-shadow: none;
+    border-image: url("assets/header-cell.svg") 16;
 }
 
+#panel StWidget.panel-button:focus,
 #panel StWidget.panel-button:active,
 #panel StWidget.panel-button:checked,
+#panel StWidget.panel-button:focus:hover,
 #panel StWidget.panel-button:active:hover,
 #panel StWidget.panel-button:checked:hover {
     color: #ffffff;
-    box-shadow: inset 0 0 0 100px rgba(252, 67, 90, 0.28);
+    box-shadow: none;
+    border-image: url("assets/header-cell-active.svg") 16;
+}
+
+#panel StWidget.clock-display {
+    -natural-hpadding: 22px;
+    -minimum-hpadding: 12px;
+    border-image: url("assets/header-bay.svg") 16 !important;
+}
+
+#panel StWidget.clock-display:hover {
+    border-image: url("assets/header-bay-hover.svg") 16 !important;
+}
+
+#panel StWidget.clock-display:focus,
+#panel StWidget.clock-display:active,
+#panel StWidget.clock-display:checked {
+    border-image: url("assets/header-bay-active.svg") 16 !important;
+}
+
+#panel StWidget.clock-display StLabel.clock {
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none !important;
+    color: #ffffff;
+}
+
+#panel:overview StWidget.panel-button {
+    color: #ffffff;
+    box-shadow: none;
+    border-image: none;
+}
+
+#panel:overview StWidget.panel-button:hover {
+    box-shadow: none;
+    border-image: url("assets/header-cell.svg") 16;
+}
+
+#panel:overview StWidget.panel-button:focus,
+#panel:overview StWidget.panel-button:active,
+#panel:overview StWidget.panel-button:checked,
+#panel:overview StWidget.panel-button:focus:hover,
+#panel:overview StWidget.panel-button:active:hover,
+#panel:overview StWidget.panel-button:checked:hover {
+    box-shadow: none;
+    border-image: url("assets/header-cell-active.svg") 16;
 }
 
 #panel StWidget.panel-button .system-status-icon,
@@ -896,7 +971,7 @@ StWidget#panel {
     border-radius: 0 !important;
     background-color: transparent !important;
     background-image: none !important;
-    border-image: url("assets/dock-chassis-frame.svg") 8 10 120 10 !important;
+    border-image: url("assets/dock-chassis-frame.svg") 10 !important;
 }
 
 #dashtodockContainer.left #dash #dashtodockDashContainer {

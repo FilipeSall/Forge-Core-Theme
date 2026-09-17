@@ -136,20 +136,20 @@ install -m 644 "${SOURCE_GTK}" "${TARGET_GTK}"
 ok "css do menu instalado em ${TARGET_GTK}"
 
 touch "${GTK_CSS}"
-if grep -qF "${MARKER_BEGIN}" "${GTK_CSS}"; then
-  info "import ja presente em ${GTK_CSS}"
-else
-  TMP_CSS="$(mktemp)"
-  {
-    printf '%s\n' "${MARKER_BEGIN}"
-    printf '@import url("%s");\n' "${GTK_CSS_NAME}"
-    printf '%s\n\n' "${MARKER_END}"
-    cat "${GTK_CSS}"
-  } > "${TMP_CSS}"
-  mv "${TMP_CSS}" "${GTK_CSS}"
-  chmod 644 "${GTK_CSS}"
-  ok "import adicionado ao topo de ${GTK_CSS}"
-fi
+TMP_CSS="$(mktemp)"
+{
+  printf '%s\n' "${MARKER_BEGIN}"
+  cat "${SOURCE_GTK}"
+  printf '%s\n\n' "${MARKER_END}"
+  awk -v b="${MARKER_BEGIN}" -v e="${MARKER_END}" '
+    index($0, b) {skip=1}
+    !skip {print}
+    index($0, e) {skip=0; next}
+  ' "${GTK_CSS}"
+} > "${TMP_CSS}"
+mv "${TMP_CSS}" "${GTK_CSS}"
+chmod 644 "${GTK_CSS}"
+ok "css do menu embutido em ${GTK_CSS}"
 
 EXT_STATE="$(gnome-extensions info "${UUID}" 2>/dev/null | awk -F': ' '/Estado|State/ {print $2}' || true)"
 

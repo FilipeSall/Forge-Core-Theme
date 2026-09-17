@@ -27,7 +27,7 @@
     192,
     512
   ],
-  "referenceSource": "folders/forge-folder.png",
+  "referenceSource": "folders/forge-folder-network.png",
   "contentFill": {
     "16": 0.96,
     "22": 0.96,
@@ -38,7 +38,7 @@
   "alphaTrimThreshold": 12,
   "icons": [
     {
-      "source": "folders/forge-folder.png",
+      "source": "folders/forge-folder-network.png",
       "context": "places",
       "name": "folder",
       "aliases": [
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "source": "folders/forge-folder-open.png",
+      "source": "folders/forge-folder-network.png",
       "context": "places",
       "name": "folder-open",
       "aliases": [
@@ -54,16 +54,282 @@
       ]
     },
     {
-      "source": "folders/forge-folder-home.png",
+      "source": "folders/home-forge-core.png",
       "context": "places",
       "name": "user-home",
+      "fill": 1.0,
       "aliases": []
     },
     {
-      "source": "folders/forge-folder-download.png",
+      "source": "folders/desktop-forge-core.png",
+      "context": "places",
+      "name": "folder-desktop",
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 1,
+      "folderNames": [
+        "desktop",
+        "Área de trabalho"
+      ],
+      "aliases": []
+    },
+    {
+      "source": "folders/videos-forge-core.png",
+      "context": "places",
+      "name": "folder-videos",
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 2,
+      "folderNames": [
+        "videos"
+      ],
+      "aliases": []
+    },
+    {
+      "source": "folders/estudos-forge-core.png",
+      "context": "places",
+      "name": "folder-estudos",
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 2,
+      "folderNames": [
+        "estudos"
+      ],
+      "aliases": []
+    },
+    {
+      "source": "folders/contratos-forge-core.png",
+      "context": "places",
+      "name": "folder-contratos",
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 2,
+      "folderNames": [
+        "contratos"
+      ],
+      "aliases": []
+    },
+    {
+      "source": "folders/certificados-forge-core.png",
+      "context": "places",
+      "name": "folder-certificados",
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 2,
+      "folderNames": [
+        "certificados"
+      ],
+      "aliases": []
+    },
+    {
+      "source": "folders/downloads-forge-core.png",
       "context": "places",
       "name": "folder-download",
+      "fill": 1.0,
       "aliases": []
+    },
+    {
+      "source": "folders/documentos-forge-core.png",
+      "context": "places",
+      "name": "folder-documentos",
+      "fill": 1.0,
+      "folderNames": [
+        "documentos"
+      ],
+      "aliases": [],
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 1
+    },
+    {
+      "source": "folders/downloads-forge-core.png",
+      "context": "places",
+      "name": "folder-downloads",
+      "fill": 1.0,
+      "folderNames": [
+        "downloads"
+      ],
+      "aliases": [],
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 1
+    },
+    {
+      "source": "folders/home-forge-core.png",
+      "context": "places",
+      "name": "folder-home",
+      "fill": 1.0,
+      "folderNames": [
+        "home"
+      ],
+      "aliases": [],
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 1
+    },
+    {
+      "source": "folders/homework-forge-core.png",
+      "context": "places",
+      "name": "folder-homework",
+      "fill": 1.0,
+      "folderNames": [
+        "homework"
+      ],
+      "aliases": [],
+      "matchRoots": [
+        "~",
+        "~/projetos"
+      ],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/projetos-forge-core.png",
+      "context": "places",
+      "name": "folder-projetos",
+      "fill": 1.0,
+      "folderNames": [
+        "projetos"
+      ],
+      "aliases": [],
+      "matchRoots": [
+        "~"
+      ],
+      "matchDepth": 1
+    },
+    {
+      "source": "folders/claude-forge-core.png",
+      "context": "places",
+      "name": "folder-claude",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "claude"
+      ],
+      "legacySources": [
+        "folders/claude.png"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/codex-forge-core.png",
+      "context": "places",
+      "name": "folder-codex",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "codex"
+      ],
+      "legacySources": [
+        "folders/codex.png"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/gdf-cluster-2-forge-core.png",
+      "context": "places",
+      "name": "folder-gdf-cluster-2",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "gdf-cluster-2"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/gemini-forge-core.png",
+      "context": "places",
+      "name": "folder-gemini",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "gemini"
+      ],
+      "legacySources": [
+        "folders/gemini.png"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/negocia-df-forge-core.png",
+      "context": "places",
+      "name": "folder-negocia-df",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "negocia",
+        "negocia-df"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/papelito-forge-core.png",
+      "context": "places",
+      "name": "folder-papelito",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "papelito"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/sea-forge-core.png",
+      "context": "places",
+      "name": "folder-sea",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "sea"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/hjlog.png",
+      "context": "places",
+      "name": "folder-hjlog",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "hjlog"
+      ],
+      "aliases": [],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/forge-core-forge-core.png",
+      "context": "places",
+      "name": "folder-forge-core",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "folderNames": [
+        "forge-core"
+      ],
+      "aliases": [],
+      "matchDepth": 2
     },
     {
       "source": "apps/forge-display-setup.png",
@@ -73,6 +339,58 @@
         "preferences-desktop-display-settings",
         "video-display"
       ]
+    },
+    {
+      "source": "apps/app-center.png",
+      "context": "apps",
+      "name": "snap-store_snap-store",
+      "fill": 1.0,
+      "aliases": [
+        "snap-store_show-updates",
+        "snap-store_packagekit-session-installer"
+      ]
+    },
+    {
+      "source": "apps/volume-control.png",
+      "context": "apps",
+      "name": "multimedia-volume-control",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/input-keyboard.png",
+      "context": "apps",
+      "name": "input-keyboard",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/vim.png",
+      "context": "apps",
+      "name": "gvim",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/libreoffice-writer.png",
+      "context": "apps",
+      "name": "libreoffice-writer",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/power-stats.png",
+      "context": "apps",
+      "name": "org.gnome.PowerStats",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/additional-drivers.png",
+      "context": "apps",
+      "name": "jockey",
+      "fill": 1.0,
+      "aliases": []
     },
     {
       "source": "apps/chrome.png",
@@ -102,15 +420,6 @@
       "fill": 1.0,
       "aliases": [
         "FileZilla"
-      ]
-    },
-    {
-      "source": "apps/gthumb.png",
-      "context": "apps",
-      "name": "gthumb",
-      "fill": 1.0,
-      "aliases": [
-        "gThumb"
       ]
     },
     {
@@ -264,6 +573,13 @@
       "aliases": []
     },
     {
+      "source": "apps/clock.png",
+      "context": "apps",
+      "name": "org.gnome.clocks",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
       "source": "apps/finder.png",
       "context": "apps",
       "name": "org.gnome.eog",
@@ -274,6 +590,13 @@
       "source": "apps/configuracoes.png",
       "context": "apps",
       "name": "org.gnome.Settings",
+      "fill": 1.0,
+      "aliases": []
+    },
+    {
+      "source": "apps/ajuda.png",
+      "context": "apps",
+      "name": "org.gnome.Yelp",
       "fill": 1.0,
       "aliases": []
     },
@@ -289,7 +612,33 @@
       "context": "apps",
       "name": "firefox",
       "fill": 1.0,
-      "aliases": []
+      "aliases": [
+        "firefox_firefox",
+        "firefox-esr",
+        "org.mozilla.firefox",
+        "org.mozilla.Firefox"
+      ]
+    },
+    {
+      "source": "apps/brave.png",
+      "context": "apps",
+      "name": "brave",
+      "fill": 1.0,
+      "aliases": [
+        "brave-browser",
+        "brave_brave",
+        "com.brave.Browser"
+      ]
+    },
+    {
+      "source": "apps/safari.png",
+      "context": "apps",
+      "name": "safari",
+      "fill": 1.0,
+      "aliases": [
+        "com.apple.Safari",
+        "safari-browser"
+      ]
     },
     {
       "source": "apps/flameshot.png",
@@ -313,13 +662,6 @@
       "aliases": [
         "user-trash-full"
       ]
-    },
-    {
-      "source": "apps/todos-apps.png",
-      "context": "actions",
-      "name": "view-app-grid-user-symbolic",
-      "fill": 1.0,
-      "aliases": []
     }
   ],
   "reserved": [

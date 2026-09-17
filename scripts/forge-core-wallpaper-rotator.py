@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import fcntl
 import json
+import os
 import secrets
 import re
 import subprocess
@@ -13,12 +14,19 @@ from pathlib import Path
 
 from PIL import Image
 
-BACKGROUND_DIR = Path('/home/sea/projetos/forge-core/assets/wallpaper')
-CACHE_DIR = Path('/home/sea/.cache/forge-core-wallpaper')
+REPO_ROOT = Path(__file__).resolve().parent.parent
+CACHE_HOME = Path(os.environ.get('XDG_CACHE_HOME') or Path.home() / '.cache')
+DATA_HOME = Path(os.environ.get('XDG_DATA_HOME') or Path.home() / '.local' / 'share')
+BACKGROUND_DIR = REPO_ROOT / 'assets' / 'wallpaper'
+CACHE_DIR = CACHE_HOME / 'forge-core-wallpaper'
 STATE_FILE = CACHE_DIR / 'state.json'
 LOCK_FILE = CACHE_DIR / 'rotator.lock'
+THEME_MODE_FILE = DATA_HOME / 'forge-core' / 'icon-theme-mode'
+FORGE_ICON_THEME = 'Forge-Core'
 ROTATION_SECONDS = 30 * 60
 POLL_SECONDS = 60
+GENERATED_GLOB = 'wallpaper-*.png'
+KEEP_GENERATED = 3
 DISPLAY_RE = re.compile(r'^(?P<name>\S+) connected(?: primary)? (?P<w>\d+)x(?P<h>\d+)\+(?P<x>-?\d+)\+(?P<y>-?\d+)')
 
 
@@ -45,6 +53,34 @@ def set_wallpaper(path: Path) -> None:
     for key in ('picture-uri', 'picture-uri-dark'):
         subprocess.run(['gsettings', 'set', 'org.gnome.desktop.background', key, uri], check=True)
     subprocess.run(['gsettings', 'set', 'org.gnome.desktop.background', 'picture-options', 'spanned'], check=True)
+
+
+def forge_active() -> bool:
+    try:
+        if THEME_MODE_FILE.is_file() and THEME_MODE_FILE.read_text().strip() != FORGE_ICON_THEME:
+            return False
+        result = subprocess.run(
+            ['gsettings', 'get', 'org.gnome.desktop.interface', 'icon-theme'],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+        return result.returncode == 0 and result.stdout.strip().strip("'\"") == FORGE_ICON_THEME
+    except OSError:
+        return False
+
+
+def current_wallpaper() -> str:
+    try:
+        result = subprocess.run(
+            ['gsettings', 'get', 'org.gnome.desktop.background', 'picture-uri'],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+        return result.stdout.strip().strip("'\"") if result.returncode == 0 else ''
+    except OSError:
+        return ''
 
 
 def load_state() -> dict:
@@ -76,7 +112,50 @@ def render(active: list[tuple[str, int, int, int, int]]) -> None:
     output = CACHE_DIR / f'wallpaper-{int(time.time())}.png'
     canvas.save(output, optimize=True)
     set_wallpaper(output)
-    STATE_FILE.write_text(json.dumps({'last_rotation': time.time(), 'topology': active, 'wallpaper': str(output)}))
+    STATE_FILE.write_text(json.dumps({
+        'last_rotation': time.time(),
+        'topology': [list(item) for item in active],
+        'wallpaper': str(output),
+    }))
+    prune_generated(output)
+
+
+def generated_wallpapers() -> list[Path]:
+    """Return the regular PNGs this script generated, newest first."""
+    eligible: list[tuple[float, Path]] = []
+    for path in CACHE_DIR.glob(GENERATED_GLOB):
+        try:
+            if path.is_symlink() or not path.is_file():
+                continue
+            eligible.append((path.stat().st_mtime, path))
+        except OSError:
+            continue
+    eligible.sort(key=lambda item: item[0], reverse=True)
+    return [path for _, path in eligible]
+
+
+def prune_generated(current: Path | None = None) -> int:
+    """Keep the wallpaper in use plus the newest ones, drop the rest."""
+    eligible = generated_wallpapers()
+    keep: list[Path] = []
+    if current is not None and current in eligible:
+        keep.append(current)
+    for path in eligible:
+        if len(keep) >= KEEP_GENERATED:
+            break
+        if path not in keep:
+            keep.append(path)
+
+    removed = 0
+    for path in eligible:
+        if path in keep:
+            continue
+        try:
+            path.unlink()
+            removed += 1
+        except OSError:
+            continue
+    return removed
 
 
 def main() -> None:
@@ -86,13 +165,27 @@ def main() -> None:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             return
+        startup_state = load_state().get('wallpaper', '')
+        prune_generated(
+            Path(startup_state) if isinstance(startup_state, str) and startup_state else None)
         while True:
+            if not forge_active():
+                return
             active = displays()
             if active:
                 state = load_state()
-                topology_changed = state.get('topology') != active
+                topology = [list(item) for item in active]
+                topology_changed = state.get('topology') != topology
                 due = time.time() - state.get('last_rotation', 0) >= ROTATION_SECONDS
-                if topology_changed or due:
+                expected_wallpaper = state.get('wallpaper', '')
+                expected_uri = ''
+                if isinstance(expected_wallpaper, str) and expected_wallpaper:
+                    try:
+                        expected_uri = Path(expected_wallpaper).as_uri()
+                    except ValueError:
+                        expected_uri = ''
+                wallpaper_changed = current_wallpaper() != expected_uri
+                if topology_changed or due or wallpaper_changed:
                     render(active)
             time.sleep(POLL_SECONDS)
 

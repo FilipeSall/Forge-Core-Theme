@@ -11,10 +11,11 @@ and `Icon=firefox`; a different basename would create a duplicate application.
 
 The current session already resolves Firefox through
 `~/.local/share/applications/firefox_firefox.desktop`, and GTK resolves the
-Forge-Core PNG. The remaining stale App Grid result is GNOME Shell retaining its
-in-process app/icon state when the icon-theme setting is written to the value it
-already has. A real theme transition (`Yaru -> Forge-Core`) is needed to notify
-the shell.
+Forge-Core PNG. A running GNOME Shell can nevertheless retain the old absolute
+`GFileIcon` in its in-process app system after the user override is created. A
+theme transition alone is insufficient; on X11 the reliable live refresh is
+`gnome-shell --replace`. On Wayland the safe equivalent remains the next
+logout/login.
 
 ## Design
 
@@ -59,7 +60,7 @@ directory, then writes a user service named
 with `systemctl --user`. The service runs a dependency-free Python watcher.
 Every two seconds it snapshots `*.desktop` files in all supported application
 roots. A changed snapshot triggers the idempotent browser apply operation, which
-means a newly installed APT, Snap, or Flatpak browser is handled without a
+means a newly installed APT, Snap, or Flatpak launcher is handled without a
 manual command.
 
 On every reconciliation, an override created by Forge Core is removed when its
@@ -67,14 +68,16 @@ last non-user launcher disappears. A user-modified override is preserved and
 reported instead. The installer refuses to overwrite an existing unit with the
 same name unless it contains the Forge-Core marker.
 
-The watcher does not create entries for absent browsers. It only writes an
-override after finding a real launcher with an absolute icon. If Forge-Core is
-the active theme and an override changed, the watcher briefly selects the
-fallback theme and selects Forge-Core again. This emits the GNOME setting change
-that refreshes the App Grid, dock, and menus. If another icon theme is active,
-the watcher does not force Forge-Core on the user. The refresh re-reads the
-setting after each transition and stops without a second write if the user
-changes the theme or a `gsettings` operation fails.
+The watcher does not create entries for absent managed applications. It only
+writes an override after finding a real launcher with an absolute icon. If
+Forge-Core is the active theme and an override changed, the watcher briefly
+selects the fallback theme and selects Forge-Core again. It deliberately does
+not request `gnome-shell --replace`: this can crash GNOME Shell in some X11
+sessions. If the Shell retains a stale in-process `GFileIcon`, the override
+becomes visible after the normal session restart. A manual replacement remains
+available only with the explicit
+`FORGE_CORE_ALLOW_GNOME_SHELL_REPLACE=1` opt-in. If another icon theme is
+active, the watcher does not force Forge-Core on the user.
 
 If `systemctl --user` is unavailable, installation still applies existing
 launchers and reports that future-install watching could not be enabled. The

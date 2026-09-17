@@ -6,8 +6,9 @@
         "46"
     ],
     "session-modes": [
-        "user"
+        "user",
+        "unlock-dialog"
     ],
-    "version": 3,
+    "version": 8,
     "url": "https://github.com/seatecnologia/forge-core"
 }

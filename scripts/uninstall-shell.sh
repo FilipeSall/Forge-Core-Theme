@@ -24,6 +24,18 @@ TARGET_GTK="${GTK_DIR}/${GTK_CSS_NAME}"
 STATE_DIR="${USER_DATA_HOME}/forge-core"
 STATE_FILE="${STATE_DIR}/shell-state.env"
 BACKUP_DIR="${STATE_DIR}/backup"
+THEME_MODE_FILE="${STATE_DIR}/icon-theme-mode"
+WALLPAPER_AUTOSTART_FILE="${USER_CONFIG_HOME}/autostart/forge-core-wallpaper-rotator.desktop"
+WALLPAPER_SCRIPT="${REPO_ROOT}/scripts/forge-core-wallpaper-rotator.py"
+FORGE_UNITS=(
+  forge-core-browser-icons.service
+  forge-core-folder-chooser-icons.timer
+  forge-core-folder-chooser-icons.service
+  forge-core-folder-chooser-icons-cleanup.service
+  forge-core-folder-chooser-icons-theme.service
+  forge-core-special-folder-icons.timer
+  forge-core-special-folder-icons.service
+) 
 
 KEEP_FILES=0
 [[ "${1:-}" == "--keep-files" ]] && KEEP_FILES=1
@@ -32,6 +44,25 @@ abort() { printf '\033[0;31merro:\033[0m %s\n' "$1" >&2; exit 1; }
 info()  { printf '\033[0;36m::\033[0m %s\n' "$1"; }
 ok()    { printf '\033[0;32mok\033[0m %s\n' "$1"; }
 warn()  { printf '\033[0;33m!!\033[0m %s\n' "$1"; }
+
+disable_forge_automation() {
+  mkdir -p "${STATE_DIR}"
+  printf '%s\n' "Yaru" > "${THEME_MODE_FILE}"
+
+  if command -v systemctl >/dev/null 2>&1; then
+    for unit in "${FORGE_UNITS[@]}"; do
+      systemctl --user disable --now "${unit}" >/dev/null 2>&1 || true
+    done
+  fi
+
+  if [[ -f "${WALLPAPER_AUTOSTART_FILE}" ]]; then
+    sed -i 's/^X-GNOME-Autostart-enabled=.*/X-GNOME-Autostart-enabled=false/' \
+      "${WALLPAPER_AUTOSTART_FILE}"
+  fi
+
+  pkill -TERM -f "^(.*/)?python3 ${WALLPAPER_SCRIPT}$" >/dev/null 2>&1 || true
+  ok "automacoes Forge Core desabilitadas"
+}
 
 [[ ${EUID} -eq 0 ]] && abort "nao execute como root"
 
@@ -42,6 +73,7 @@ if [[ -f "${STATE_FILE}" ]]; then
   PREV_DASH_MAX_ICON_SIZE="$(awk -F= '/^PREV_DASH_MAX_ICON_SIZE=/{print $2}' "${STATE_FILE}")"
 fi
 
+disable_forge_automation
 gnome-extensions disable "${UUID}" >/dev/null 2>&1 || true
 
 restore_dock_setting() {

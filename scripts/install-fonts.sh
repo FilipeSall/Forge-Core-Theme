@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=../config/typography.conf
 source "$ROOT/config/typography.conf"
 FONT_ROOT="${FONT_ROOT:-$HOME/.local/share/fonts/Forge-Core}"
+CHECKSUMS="$ROOT/config/typography.sha256"
 TMPDIR="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR"' EXIT
 
@@ -14,7 +15,24 @@ has_family() {
   resolved="$(fc-match -f '%{family}' "$requested")"
   test "${resolved%%,*}" = "$requested"
 }
-for tool in curl unzip find install fc-cache fc-match; do need "$tool"; done
+for tool in curl unzip find install fc-cache fc-match sha256sum; do need "$tool"; done
+test -f "$CHECKSUMS" || { echo "Missing $CHECKSUMS" >&2; exit 1; }
+
+verify() {
+  local relative="$1" expected actual
+  expected="$(awk -v f="$relative" '$0 !~ /^#/ && substr($0, index($0, "  ") + 2) == f {print $1}' "$CHECKSUMS")"
+  if test -z "$expected"; then
+    rm -f "$FONT_ROOT/$relative"
+    echo "No checksum recorded for $relative" >&2
+    exit 1
+  fi
+  actual="$(sha256sum "$FONT_ROOT/$relative" | cut -d" " -f1)"
+  if test "$actual" != "$expected"; then
+    rm -f "$FONT_ROOT/$relative"
+    echo "Checksum mismatch for $relative: expected $expected, got $actual" >&2
+    exit 1
+  fi
+}
 mkdir -p "$FONT_ROOT/IBMPlexSans" "$FONT_ROOT/Oxanium" "$FONT_ROOT/JetBrainsMono"
 
 install_ibm_plex() {
@@ -25,12 +43,15 @@ install_ibm_plex() {
     source_file="$(find "$TMPDIR/ibm" -type f -name "$name" -print -quit)"
     test -n "$source_file" || { echo "IBM Plex archive missing $name" >&2; exit 1; }
     install -m 0644 "$source_file" "$FONT_ROOT/IBMPlexSans/$name"
+    verify "IBMPlexSans/$name"
   done
 }
 
 install_oxanium() {
   if has_family 'Oxanium'; then return; fi
-  curl --fail --location --retry 3 --output "$FONT_ROOT/Oxanium/Oxanium[wght].ttf" "$OXANIUM_TTF"
+  curl --fail --location --retry 3 --output "$TMPDIR/Oxanium[wght].ttf" "$OXANIUM_TTF"
+  install -m 0644 "$TMPDIR/Oxanium[wght].ttf" "$FONT_ROOT/Oxanium/Oxanium[wght].ttf"
+  verify "Oxanium/Oxanium[wght].ttf"
 }
 
 install_jetbrains_mono_if_needed() {
@@ -41,6 +62,7 @@ install_jetbrains_mono_if_needed() {
     source_file="$(find "$TMPDIR/jetbrains" -type f -name "$name" -print -quit)"
     test -n "$source_file" || { echo "JetBrains Mono archive missing $name" >&2; exit 1; }
     install -m 0644 "$source_file" "$FONT_ROOT/JetBrainsMono/$name"
+    verify "JetBrainsMono/$name"
   done
 }
 
