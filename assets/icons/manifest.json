@@ -139,13 +139,43 @@
       "name": "folder-documentos",
       "fill": 1.0,
       "folderNames": [
-        "documentos"
+        "documentos",
+        "docs"
       ],
       "aliases": [],
       "matchRoots": [
+        "~",
+        "~/projetos"
+      ],
+      "matchDepth": 2
+    },
+    {
+      "source": "folders/musicas-forge-core.png",
+      "context": "places",
+      "name": "folder-musicas",
+      "matchRoots": [
         "~"
       ],
-      "matchDepth": 1
+      "matchDepth": 1,
+      "folderNames": [
+        "musica",
+        "musicas",
+        "Músicas"
+      ],
+      "aliases": []
+    },
+    {
+      "source": "folders/assets-forge-core.png",
+      "context": "places",
+      "name": "folder-assets",
+      "matchRoots": [
+        "~/projetos"
+      ],
+      "matchDepth": 2,
+      "folderNames": [
+        "assets"
+      ],
+      "aliases": []
     },
     {
       "source": "folders/downloads-forge-core.png",
