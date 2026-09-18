@@ -692,6 +692,150 @@
       "aliases": [
         "user-trash-full"
       ]
+    },
+    {
+      "source": "mimetypes/pdf.png",
+      "context": "mimetypes",
+      "name": "application-pdf",
+      "fill": 1.0,
+      "aliases": [
+        "gnome-mime-application-pdf"
+      ]
+    },
+    {
+      "source": "mimetypes/word.png",
+      "context": "mimetypes",
+      "name": "application-vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "fill": 1.0,
+      "aliases": [
+        "application-msword",
+        "gnome-mime-application-msword"
+      ]
+    },
+    {
+      "source": "mimetypes/xlsx.png",
+      "context": "mimetypes",
+      "name": "application-vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "fill": 1.0,
+      "aliases": [
+        "application-vnd.ms-excel",
+        "gnome-mime-application-vnd.ms-excel"
+      ]
+    },
+    {
+      "source": "mimetypes/csv.png",
+      "context": "mimetypes",
+      "name": "text-csv",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-csv"
+      ]
+    },
+    {
+      "source": "mimetypes/java.png",
+      "context": "mimetypes",
+      "name": "text-x-java",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-java-source",
+        "application-x-java",
+        "gnome-mime-text-x-java"
+      ]
+    },
+    {
+      "source": "mimetypes/python.png",
+      "context": "mimetypes",
+      "name": "text-x-python",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-python3",
+        "gnome-mime-text-x-python"
+      ]
+    },
+    {
+      "source": "mimetypes/json.png",
+      "context": "mimetypes",
+      "name": "application-json",
+      "fill": 1.0,
+      "aliases": [
+        "text-json",
+        "application-x-json"
+      ]
+    },
+    {
+      "source": "mimetypes/sh.png",
+      "context": "mimetypes",
+      "name": "application-x-shellscript",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-sh",
+        "application-x-sh",
+        "text-x-shellscript"
+      ]
+    },
+    {
+      "source": "mimetypes/javascript.png",
+      "context": "mimetypes",
+      "name": "text-javascript",
+      "fill": 1.0,
+      "aliases": [
+        "application-javascript",
+        "application-x-javascript",
+        "text-x-javascript"
+      ]
+    },
+    {
+      "source": "mimetypes/css.png",
+      "context": "mimetypes",
+      "name": "text-css",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-css",
+        "gnome-mime-text-css"
+      ]
+    },
+    {
+      "source": "mimetypes/typescript.png",
+      "context": "mimetypes",
+      "name": "text-typescript",
+      "fill": 1.0,
+      "aliases": [
+        "application-typescript",
+        "text-x-typescript",
+        "application-x-typescript"
+      ]
+    },
+    {
+      "source": "mimetypes/rust.png",
+      "context": "mimetypes",
+      "name": "text-rust",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-rust",
+        "application-rls-services+xml"
+      ]
+    },
+    {
+      "source": "mimetypes/html.png",
+      "context": "mimetypes",
+      "name": "text-html",
+      "fill": 1.0,
+      "aliases": [
+        "application-xhtml+xml",
+        "text-x-html",
+        "gnome-mime-text-html"
+      ]
+    },
+    {
+      "source": "mimetypes/yml.png",
+      "context": "mimetypes",
+      "name": "application-yaml",
+      "fill": 1.0,
+      "aliases": [
+        "text-x-yaml",
+        "application-x-yaml",
+        "text-yaml"
+      ]
     }
   ],
   "reserved": [

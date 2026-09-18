@@ -30,6 +30,23 @@ KEEP_GENERATED = 3
 DISPLAY_RE = re.compile(r'^(?P<name>\S+) connected(?: primary)? (?P<w>\d+)x(?P<h>\d+)\+(?P<x>-?\d+)\+(?P<y>-?\d+)')
 
 
+def merge_mirrors(
+    active: list[tuple[str, int, int, int, int]],
+) -> list[tuple[str, int, int, int, int]]:
+    """Collapse outputs that share an origin into one logical screen.
+
+    Mirrored outputs report the same position, so keeping both would paste two
+    images over each other; the larger area wins because it spans the framebuffer.
+    """
+    groups: dict[tuple[int, int], tuple[str, int, int, int, int]] = {}
+    for monitor in active:
+        _, width, height, x, y = monitor
+        current = groups.get((x, y))
+        if current is None or width * height > current[1] * current[2]:
+            groups[(x, y)] = monitor
+    return sorted(groups.values(), key=lambda monitor: (monitor[4], monitor[3]))
+
+
 def displays() -> list[tuple[str, int, int, int, int]]:
     result = subprocess.run(['xrandr', '--current'], check=True, text=True, capture_output=True)
     active = []
@@ -37,7 +54,7 @@ def displays() -> list[tuple[str, int, int, int, int]]:
         match = DISPLAY_RE.match(line)
         if match:
             active.append((match['name'], int(match['w']), int(match['h']), int(match['x']), int(match['y'])))
-    return active
+    return merge_mirrors(active)
 
 
 def fit_cover(source: Image.Image, width: int, height: int) -> Image.Image:

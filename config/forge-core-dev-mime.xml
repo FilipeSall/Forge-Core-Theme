@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Forge Core: *.ts colide com Qt Linguist e *.tsx com Tiled no shared-mime-info.
+     O peso 60 supera o glob padrao (50) sem editar o banco do sistema. -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="text/typescript">
+    <comment>TypeScript source code</comment>
+    <comment xml:lang="pt_BR">Código-fonte TypeScript</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.ts" weight="60"/>
+    <glob pattern="*.tsx" weight="60"/>
+    <glob pattern="*.mts" weight="60"/>
+    <glob pattern="*.cts" weight="60"/>
+  </mime-type>
+  <mime-type type="text/javascript">
+    <glob pattern="*.jsx" weight="60"/>
+    <glob pattern="*.cjs" weight="60"/>
+  </mime-type>
+</mime-info>

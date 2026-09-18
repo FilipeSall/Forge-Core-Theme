@@ -13,6 +13,13 @@ ASSETS = os.path.join(REPO, "assets", "icons")
 MANIFEST = os.path.join(ASSETS, "manifest.json")
 SYMBOLIC = os.path.join(ASSETS, "symbolic")
 
+# freedesktop grafa alguns contextos em camel case; capitalize() nao basta.
+CONTEXT_LABELS = {"mimetypes": "MimeTypes"}
+
+
+def context_label(context):
+    return CONTEXT_LABELS.get(context, context.capitalize())
+
 
 def load_manifest():
     with open(MANIFEST, encoding="utf-8") as handle:
@@ -113,7 +120,7 @@ def write_index_theme(theme_root, manifest):
     for context in symbolic_contexts():
         lines.append(f"[scalable/{context}]")
         lines.append("Size=16")
-        lines.append(f"Context={context.capitalize()}")
+        lines.append(f"Context={context_label(context)}")
         lines.append("Type=Scalable")
         lines.append("MinSize=8")
         lines.append("MaxSize=512")
@@ -123,7 +130,7 @@ def write_index_theme(theme_root, manifest):
         for context in contexts:
             lines.append(f"[{size}x{size}/{context}]")
             lines.append(f"Size={size}")
-            lines.append(f"Context={context.capitalize()}")
+            lines.append(f"Context={context_label(context)}")
             if size == scalable_from:
                 lines.append("Type=Scalable")
                 lines.append(f"MinSize={min_size}")

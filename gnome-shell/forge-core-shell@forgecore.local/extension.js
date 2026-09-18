@@ -6,6 +6,7 @@ import St from 'gi://St';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
+import {planWallpaperRestore, sanitizeWallpaperState} from './wallpaperState.js';
 
 const EFFECT_NAME = 'forge-core-glass';
 const INTERFACE_SCHEMA = 'org.gnome.desktop.interface';
@@ -29,11 +30,14 @@ const GTK_OVERLAY_END = '/* forge-core:end */';
 const WALLPAPER_AUTOSTART_FILE = GLib.build_filenamev([
     GLib.get_user_config_dir(), 'autostart', 'forge-core-wallpaper-rotator.desktop',
 ]);
+const WALLPAPER_CACHE_DIR = GLib.build_filenamev([
+    GLib.get_user_cache_dir(), 'forge-core-wallpaper',
+]);
 const WALLPAPER_STATE_FILE = GLib.build_filenamev([
-    GLib.get_user_cache_dir(), 'forge-core-wallpaper', 'theme-state.json',
+    WALLPAPER_CACHE_DIR, 'theme-state.json',
 ]);
 const WALLPAPER_ROTATION_STATE_FILE = GLib.build_filenamev([
-    GLib.get_user_cache_dir(), 'forge-core-wallpaper', 'state.json',
+    WALLPAPER_CACHE_DIR, 'state.json',
 ]);
 const APPEARANCE_STATE_FILE = GLib.build_filenamev([
     GLib.get_user_data_dir(), 'forge-core', 'appearance-state.json',
@@ -290,9 +294,22 @@ function readWallpaperState() {
     }
 }
 
+function wallpaperStateOptions() {
+    return {
+        forgeDir: WALLPAPER_CACHE_DIR,
+        fileExists: path => GLib.file_test(path, GLib.FileTest.EXISTS),
+    };
+}
+
 function writeWallpaperState(state) {
     try {
-        writeFile(WALLPAPER_STATE_FILE, `${JSON.stringify(state)}\n`);
+        const restorable = sanitizeWallpaperState(state, wallpaperStateOptions());
+        if (!restorable) {
+            removeFile(WALLPAPER_STATE_FILE);
+            return;
+        }
+
+        writeFile(WALLPAPER_STATE_FILE, `${JSON.stringify(restorable)}\n`);
     } catch (error) {
         logError(error, 'Forge Core: failed to save the previous wallpaper state');
     }
@@ -462,24 +479,17 @@ export default class ForgeCoreShellExtension extends Extension {
     }
 
     _restoreWallpaper() {
-        const previous = readWallpaperState();
-        if (!previous) {
-            this._backgroundSettings.reset('picture-uri');
-            this._backgroundSettings.reset('picture-uri-dark');
-            this._backgroundSettings.reset('picture-options');
-            return;
+        const plan = planWallpaperRestore(
+            readWallpaperState(), wallpaperStateOptions());
+
+        for (const [key, value] of plan) {
+            if (value === null)
+                this._backgroundSettings.reset(key);
+            else if (this._backgroundSettings.get_string(key) !== value)
+                this._backgroundSettings.set_string(key, value);
         }
 
-        for (const [key, value] of [
-            ['picture-uri', previous.pictureUri],
-            ['picture-uri-dark', previous.pictureUriDark],
-            ['picture-options', previous.pictureOptions],
-        ]) {
-            if (typeof value === 'string' &&
-                this._backgroundSettings.get_string(key) !== value) {
-                this._backgroundSettings.set_string(key, value);
-            }
-        }
+        removeFile(WALLPAPER_STATE_FILE);
     }
 
     _setForgeAutomation(forgeActive, previousForgeActive) {

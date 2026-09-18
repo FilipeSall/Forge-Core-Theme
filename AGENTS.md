@@ -117,6 +117,16 @@ systemctl --user restart forge-core-folder-chooser-icons-theme.service
 E valide trocando o tema de verdade (`gsettings set ... icon-theme`), deixando os
 servicos agirem, em vez de chamar `apply()`/`restore()` na mao.
 
+## Espelhamento de tela usa UMA imagem
+
+Saidas espelhadas reportam a mesma origem no `xrandr` (`+0+0` nas duas). Sem
+tratamento, o rotator sorteia uma imagem por saida e cola as duas na mesma posicao:
+com resolucoes diferentes a segunda cobre so parte da primeira e sobra uma emenda
+visivel nas bordas.
+
+`merge_mirrors()` agrupa por origem e mantem a de maior area, que e a que cobre o
+framebuffer. Layout estendido (origens distintas) continua com uma imagem por tela.
+
 ## Serialização
 
 `folder_chooser_icons` e `special_folder_icons` escrevem nos mesmos thumbnails,

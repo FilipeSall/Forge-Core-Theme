@@ -24,6 +24,10 @@ WATCHER_RUNTIME_SCRIPT="${WATCHER_RUNTIME_DIR}/watch-browser-icons.py"
 WATCHER_MARKER="# Forge Core managed: browser launcher icon watcher"
 FOLDER_CHOOSER_SCRIPT="${REPO_ROOT}/scripts/apply-folder-chooser-icons.py"
 SPECIAL_FOLDER_SCRIPT="${REPO_ROOT}/scripts/special_folder_icons.py"
+DEV_MIME_NAME="forge-core-dev-mime.xml"
+DEV_MIME_SOURCE="${REPO_ROOT}/config/${DEV_MIME_NAME}"
+MIME_HOME="${USER_DATA_HOME}/mime"
+DEV_MIME_TARGET="${MIME_HOME}/packages/${DEV_MIME_NAME}"
 
 APPLY=1
 [[ "${1:-}" == "--no-apply" ]] && APPLY=0
@@ -79,6 +83,24 @@ install_browser_watcher() {
     return
   fi
   ok "watcher de instalacoes futuras habilitado"
+}
+
+install_dev_mime() {
+  [[ -f "${DEV_MIME_SOURCE}" ]] || {
+    info "definicao MIME de dev ausente; .ts continua como Qt Linguist"
+    return
+  }
+  if ! command -v update-mime-database >/dev/null 2>&1; then
+    info "update-mime-database ausente; tipos de dev nao registrados"
+    return
+  fi
+  mkdir -p "$(dirname "${DEV_MIME_TARGET}")"
+  install -m 644 "${DEV_MIME_SOURCE}" "${DEV_MIME_TARGET}"
+  if update-mime-database "${MIME_HOME}" >/dev/null 2>&1; then
+    ok "tipos de dev registrados (.ts/.tsx/.jsx/.cjs)"
+  else
+    info "nao foi possivel atualizar o banco MIME do usuario"
+  fi
 }
 
 install_folder_chooser_icons() {
@@ -144,6 +166,7 @@ if [[ ${APPLY} -eq 1 ]]; then
   python3 "${REPO_ROOT}/scripts/apply-browser-icons.py" --refresh \
     || info "overrides de launcher nao foram aplicados"
   install_browser_watcher
+  install_dev_mime
   install_special_folder_icons
   install_folder_chooser_icons
   trap - ERR

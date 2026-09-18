@@ -17,6 +17,9 @@ WATCHER_UNIT_NAME="forge-core-browser-icons.service"
 WATCHER_UNIT="${SYSTEMD_USER_DIR}/${WATCHER_UNIT_NAME}"
 WATCHER_RUNTIME_DIR="${STATE_DIR}/browser-icons-watcher"
 WATCHER_MARKER="# Forge Core managed: browser launcher icon watcher"
+DEV_MIME_NAME="forge-core-dev-mime.xml"
+MIME_HOME="${USER_DATA_HOME}/mime"
+DEV_MIME_TARGET="${MIME_HOME}/packages/${DEV_MIME_NAME}"
 FOLDER_CHOOSER_RESTORE_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/restore-folder-chooser-icons.py"
 
 KEEP_FILES=0
@@ -44,9 +47,19 @@ remove_browser_watcher() {
   ok "watcher de instalacoes futuras removido"
 }
 
+remove_dev_mime() {
+  [[ -f "${DEV_MIME_TARGET}" ]] || return
+  rm -f "${DEV_MIME_TARGET}"
+  if command -v update-mime-database >/dev/null 2>&1; then
+    update-mime-database "${MIME_HOME}" >/dev/null 2>&1 || true
+  fi
+  ok "tipos de dev removidos (.ts volta ao padrao do sistema)"
+}
+
 [[ ${EUID} -eq 0 ]] && abort "nao execute como root"
 
 remove_browser_watcher
+remove_dev_mime
 
 PREVIOUS_THEME="${FALLBACK_THEME}"
 if [[ -f "${STATE_FILE}" ]]; then
