@@ -38,6 +38,7 @@ Fora do escopo: RGB gamer, excesso de neon, cyberpunk decadente, steampunk vitor
 | **Dropdown de data/hora (calendário + lista)** | **v0.1 — instalado** |
 | **Menu de contexto do desktop (DING)** | **v0.1 — instalado** |
 | **Dock Forge Core (altura cheia) / Quick Settings / bateria / toggle Yaru ↔ Forge Core** | **v0.4 — instalado** |
+| **Interior do Nautilus (chassi, sidebar, grade, ícones da lateral)** | **v0.1 — instalado** |
 | Overview / apps GTK | não iniciado |
 
 ## Estrutura
@@ -60,11 +61,12 @@ forge-core/
 ├── gtk-3.0/
 │   └── forge-core-desktop-menu.css         menu de contexto do desktop (DING, GTK3)
 ├── gtk-4.0/
-│   └── forge-core-nautilus-thumbnails.css  pastas com ícone próprio sem fundo xadrez no Nautilus
+│   └── forge-core-nautilus.css  interior do Nautilus: chassi, sidebar, grade, miniaturas
 ├── config/
 │   └── forge-core-browser-icons.service    template do watcher systemd --user
 ├── scripts/
 │   ├── build-icons.py         assets + manifest -> icon-theme/
+│   ├── build-symbolic-icons.py  gera a familia simbolica -> assets/icons/symbolic/
 │   ├── build-cursors.py       assets + manifest -> cursor-theme/
 │   ├── install-cursors.sh     cursor-theme/ -> ~/.local/share/icons + aplica
 │   ├── uninstall-cursors.sh   restaura o cursor anterior e remove
@@ -84,7 +86,8 @@ forge-core/
     ├── identidade-visual.md   a fonte da verdade da identidade Forge Core
     ├── icons.md               decisões, comportamento e como expandir
     ├── cursors.md             cobertura de cursores, hotspots e spinner animado
-    └── gnome-shell.md         notificações, data/hora e menu do desktop
+    ├── gnome-shell.md         notificações, data/hora e menu do desktop
+    └── nautilus.md            interior da janela do Nautilus e ícones da lateral
 ```
 
 ## Uso
@@ -131,10 +134,15 @@ tema e diariamente:
 python3 scripts/special_folder_icons.py --dry-run
 ```
 
+O interior da janela do Nautilus (chassi, barra lateral, grade de arquivos e ícones
+simbólicos da lateral) é aplicado junto com os ícones, enquanto o `Forge-Core` estiver
+ativo. Detalhes e limitações: [`docs/nautilus.md`](docs/nautilus.md).
+
 A identidade completa (paleta, tipografia, estilo de ícones, cursores, princípios) está em
 [`docs/identidade-visual.md`](docs/identidade-visual.md) — é a fonte da verdade do tema.
 
 Detalhes, limitações conhecidas e guia de expansão por camada:
 [`docs/icons.md`](docs/icons.md), [`docs/cursors.md`](docs/cursors.md),
-[`docs/gnome-shell.md`](docs/gnome-shell.md), [`docs/typography.md`](docs/typography.md) e
+[`docs/gnome-shell.md`](docs/gnome-shell.md), [`docs/typography.md`](docs/typography.md),
+[`docs/nautilus.md`](docs/nautilus.md) e
 [`docs/folder-chooser-icons.md`](docs/folder-chooser-icons.md).

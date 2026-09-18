@@ -1,0 +1,372 @@
+.view .thumbnail {
+    background-image: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+window.view,
+window.view:backdrop {
+    background-color: #1b1b1b;
+}
+
+window.view headerbar,
+window.view headerbar:backdrop {
+    background-color: transparent;
+    background-image:
+        linear-gradient(#383838, #383838),
+        linear-gradient(to top,
+            #383838 0px, #383838 1px,
+            #5f272e 1px, #5f272e 3px,
+            #111111 3px, #111111 4px,
+            #212121 4px, #1d1d1d 60%, #262626 100%);
+    background-size: 100% 1px, auto;
+    background-position: top, 0 0;
+    background-repeat: no-repeat, repeat;
+    box-shadow: none;
+    border: none;
+    color: #ffffff;
+}
+
+window.view actionbar > revealer > box,
+window.view actionbar > revealer > box:backdrop,
+window.view .sidebar-pane .toolbar,
+window.view .sidebar-pane .toolbar:backdrop {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+        #383838 0px, #383838 1px,
+        #111111 1px, #111111 2px,
+        #212121 2px, #1d1d1d 60%, #262626 100%);
+    box-shadow: none;
+    border: none;
+}
+
+window.view headerbar button:not(.suggested-action):not(.destructive-action),
+window.view headerbar menubutton > button,
+window.view actionbar button:not(.suggested-action):not(.destructive-action),
+window.view actionbar menubutton > button,
+window.view .toolbar button:not(.suggested-action):not(.destructive-action),
+window.view .toolbar menubutton > button {
+    border-radius: 2px;
+    border: none;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    color: #a6a6a6;
+}
+
+window.view headerbar button:not(.suggested-action):not(.destructive-action):hover,
+window.view headerbar menubutton > button:hover,
+window.view actionbar button:not(.suggested-action):not(.destructive-action):hover,
+window.view actionbar menubutton > button:hover,
+window.view .toolbar button:not(.suggested-action):not(.destructive-action):hover,
+window.view .toolbar menubutton > button:hover {
+    background-image: linear-gradient(to bottom, #242424, #2a2a2a);
+    box-shadow: inset 0 0 0 1px #3a3a3a;
+    color: #ffffff;
+}
+
+window.view headerbar button:not(.suggested-action):not(.destructive-action):checked,
+window.view headerbar button:not(.suggested-action):not(.destructive-action):active,
+window.view headerbar menubutton > button:checked,
+window.view headerbar menubutton > button:active,
+window.view actionbar button:not(.suggested-action):not(.destructive-action):checked,
+window.view actionbar button:not(.suggested-action):not(.destructive-action):active,
+window.view .toolbar button:not(.suggested-action):not(.destructive-action):checked,
+window.view .toolbar button:not(.suggested-action):not(.destructive-action):active {
+    background-image: linear-gradient(to bottom, #2c2c2c, #323232);
+    box-shadow: inset 0 0 0 1px #484848, inset 0 -2px 0 #fc435a;
+    color: #ffffff;
+}
+
+window.view #NautilusPathBar {
+    background-color: transparent;
+    background-image:
+        linear-gradient(to right,
+            rgba(252, 67, 90, 0.4) 0px, rgba(252, 67, 90, 0.4) 1.5px,
+            transparent 1.5px),
+        linear-gradient(to left,
+            rgba(252, 67, 90, 0.4) 0px, rgba(252, 67, 90, 0.4) 1.5px,
+            transparent 1.5px),
+        linear-gradient(to bottom, #131313, #191919);
+    background-size: 100% 14px, 100% 14px, auto;
+    background-position: left center, right center, 0 0;
+    background-repeat: no-repeat, no-repeat, repeat;
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px #343434;
+}
+
+window.view #NautilusPathButton {
+    border-radius: 0;
+    margin: 4px 0;
+    color: #a6a6a6;
+}
+
+window.view #NautilusPathButton:hover {
+    background-color: #242424;
+    color: #ffffff;
+}
+
+window.view #NautilusPathButton.current-dir {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+window.view .sidebar-pane,
+window.view .sidebar-pane:backdrop {
+    background-color: #242424;
+    background-image: linear-gradient(to bottom, #272727, #202020);
+    border: none;
+    box-shadow: inset -3px 0 0 #121212,
+                inset -2px 0 0 #2b2b2b,
+                inset -1px 0 0 #383838;
+}
+
+window.view .sidebar-pane headerbar,
+window.view .sidebar-pane headerbar:backdrop {
+    margin-right: 3px;
+}
+
+window.view .sidebar-pane windowtitle label.title {
+    font-family: Oxanium, "IBM Plex Sans", sans-serif;
+    font-weight: 600;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+window.view placessidebar .navigation-sidebar {
+    padding: 6px 0;
+    background-color: transparent;
+}
+
+window.view placessidebar .navigation-sidebar > row {
+    min-height: 34px;
+    margin: 0;
+    border-radius: 0;
+    color: #c8c8c8;
+    outline: none;
+}
+
+window.view placessidebar .navigation-sidebar > row > revealer {
+    padding: 0 16px 0 15px;
+}
+
+window.view placessidebar .navigation-sidebar > row image.sidebar-icon {
+    color: #9a9a9a;
+    -gtk-icon-palette: error #a83e4b, warning #ff6478, success #a6a6a6;
+}
+
+window.view placessidebar .navigation-sidebar > row.activatable:hover {
+    background-color: #2b2b2b;
+    background-image: none;
+    box-shadow: inset 3px 0 0 #3d3d3d;
+    color: #ffffff;
+}
+
+window.view placessidebar .navigation-sidebar > row.activatable:hover image.sidebar-icon {
+    color: #d4d4d4;
+    -gtk-icon-palette: error #c8404e, warning #ff6478, success #a6a6a6;
+}
+
+window.view placessidebar .navigation-sidebar > row:selected,
+window.view placessidebar .navigation-sidebar > row.activatable:selected:hover,
+window.view placessidebar .navigation-sidebar > row.activatable:selected:active {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, #2c2c2c, #323232);
+    box-shadow: inset 3px 0 0 #fc435a,
+                inset 0 1px 0 #484848,
+                inset 0 -1px 0 #171717;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+window.view placessidebar .navigation-sidebar > row:selected image.sidebar-icon {
+    color: #ffffff;
+    -gtk-icon-palette: error #fc435a, warning #ff6478, success #a6a6a6;
+}
+
+window.view placessidebar .navigation-sidebar > row:focus-visible {
+    box-shadow: inset 0 0 0 1px #fc435a;
+}
+
+window.view placessidebar .navigation-sidebar > row:selected:focus-visible {
+    box-shadow: inset 3px 0 0 #fc435a,
+                inset 0 0 0 1px #fc435a;
+}
+
+window.view placessidebar .navigation-sidebar > row.sidebar-new-bookmark-row {
+    color: #fc435a;
+}
+
+window.view placessidebar .navigation-sidebar > row.sidebar-placeholder-row {
+    background-image: image(#fc435a);
+}
+
+window.view placessidebar .navigation-sidebar > row:drop(active):not(:disabled) {
+    color: #fc435a;
+    box-shadow: inset 0 0 0 1px #fc435a;
+}
+
+window.view placessidebar separator {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+        #151515 0px, #151515 1px,
+        #343434 1px, #343434 2px);
+    margin: 8px 0 8px 15px;
+    min-height: 2px;
+}
+
+window.view .content-pane,
+window.view .content-pane:backdrop {
+    background-color: #212121;
+    background-image: linear-gradient(to bottom, #232323, #1f1f1f);
+}
+
+window.view .nautilus-grid-view,
+window.view .nautilus-list-view {
+    background-color: transparent;
+}
+
+window.view .nautilus-grid-view gridview > child,
+window.view .nautilus-grid-view #NautilusViewCell {
+    border-radius: 2px;
+}
+
+window.view .nautilus-grid-view gridview > child.activatable:hover {
+    background-color: #292929;
+}
+
+window.view .nautilus-grid-view gridview > child:selected,
+window.view .nautilus-grid-view gridview > child.activatable:selected:hover,
+window.view .nautilus-list-view columnview > listview > row:selected,
+window.view .nautilus-list-view columnview > listview > row.activatable:selected:hover {
+    background-color: #303030;
+    box-shadow: inset 0 0 0 1px #525252;
+}
+
+window.view .nautilus-list-view columnview > listview > row {
+    border-radius: 2px;
+}
+
+window.view .nautilus-list-view columnview > listview > row.activatable:hover {
+    background-color: #292929;
+}
+
+window.view placesview > * > list > row.activatable:hover {
+    background-color: #292929;
+}
+
+window.view placesview > * > list > row:selected {
+    background-color: #303030;
+    box-shadow: inset 3px 0 0 #fc435a;
+}
+
+window.view columnview > header > button {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: inset 0 -1px 0 #2f2f2f;
+    color: #707070;
+    font-weight: 500;
+}
+
+window.view columnview > header > button:hover {
+    background-color: #272727;
+    color: #ffffff;
+}
+
+window.view tabbar .box,
+window.view tabbar .box:backdrop {
+    background-color: #1d1d1d;
+    background-image: none;
+    box-shadow: inset 0 -1px 0 #121212;
+    color: #a6a6a6;
+}
+
+window.view tabbar tabbox > tabboxchild {
+    border-radius: 2px;
+}
+
+window.view tabbar tab {
+    border-radius: 2px;
+    color: #a6a6a6;
+}
+
+window.view tabbar tab:hover {
+    background-color: #272727;
+    color: #ffffff;
+}
+
+window.view tabbar tab:selected,
+window.view tabbar tab:selected:hover {
+    background-image: linear-gradient(to bottom, #2c2c2c, #323232);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px #484848, inset 0 -2px 0 #fc435a;
+    color: #ffffff;
+}
+
+window.view tabbar tabbox > revealer > indicator {
+    background: #fc435a;
+}
+
+window.view entry,
+window.view entry:focus-within {
+    background-color: #161616;
+    background-image: none;
+    border-radius: 2px;
+    color: #ffffff;
+}
+
+window.view entry {
+    box-shadow: inset 0 0 0 1px #343434;
+}
+
+window.view entry:focus-within {
+    box-shadow: inset 0 0 0 1px #3f3f3f, inset 0 -2px 0 #fc435a;
+}
+
+window.view rubberband {
+    border: 1px solid #fc435a;
+    background-color: rgba(252, 67, 90, 0.14);
+    border-radius: 0;
+}
+
+window.view .floating-bar,
+window.view .floating-bar:backdrop {
+    background-color: #1b1b1b;
+    box-shadow: 0 0 0 1px #383838;
+    border-radius: 2px 0 0 0;
+    color: #a6a6a6;
+}
+
+window.view scrollbar {
+    background-color: transparent;
+}
+
+window.view scrollbar > range > trough > slider {
+    background-color: #3a3a3a;
+    border-radius: 2px;
+}
+
+window.view scrollbar > range > trough > slider:hover {
+    background-color: #505050;
+}
+
+window.view scrollbar > range > trough > slider:active,
+window.view scrollbar > range.fine-tune > trough > slider,
+window.view scrollbar > range.fine-tune > trough > slider:hover,
+window.view scrollbar > range.fine-tune > trough > slider:active {
+    background-color: #fc435a;
+}
+
+window.view *:focus:focus-visible {
+    outline-color: rgba(252, 67, 90, 0.7);
+}
+
+window.view gridview > child:focus:focus-visible,
+window.view columnview > listview > row:focus:focus-visible {
+    outline-color: rgba(252, 67, 90, 0.7);
+    outline-width: 1px;
+    outline-offset: -1px;
+}

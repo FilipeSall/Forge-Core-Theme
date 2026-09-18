@@ -55,13 +55,15 @@ Os arquivos de `assets/icons/folders/` valem apenas para pastas reais, via
 `metadata::custom-icon` + miniatura. **Nao** os injete em outras superficies:
 
 - **Barra lateral do GTK/Nautilus** — ela usa os nomes padrao do freedesktop
-  (`user-home`, `user-desktop`, `folder-download`...). Nao crie entradas com esses
+  (`user-home-symbolic`, `user-desktop-symbolic`, `folder-download-symbolic`...).
+  Esses nomes ja tem arte propria, gerada por `scripts/build-symbolic-icons.py`
+  em `assets/icons/symbolic/`. Nao crie entradas no `manifest.json` com esses
   nomes so para reaproveitar um asset de pasta.
 - **VS Code** — `scripts/apply-vscode-folder-icons.py` altera o Material Icon Theme
   do usuario. Nao rode como parte de instalacao nenhuma; reverta com
   `scripts/restore-vscode-folder-icons.py`.
 
-Lateral e VS Code ganharao assets proprios (SVG) no futuro.
+O VS Code ainda ganhara assets proprios (SVG) no futuro.
 
 ## Purga de cache a cada troca de tema
 

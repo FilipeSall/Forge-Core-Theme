@@ -40,11 +40,14 @@ SYSTEMD_DIR = Path.home() / ".config" / "systemd" / "user"
 UNIT = "forge-core-folder-chooser-icons"
 APPLY_SCRIPT = Path(__file__).resolve().parent / "apply-folder-chooser-icons.py"
 WATCH_SCRIPT = Path(__file__).resolve().parent / "watch-folder-chooser-icons.py"
-NAUTILUS_CSS_NAME = "forge-core-nautilus-thumbnails.css"
+NAUTILUS_CSS_NAME = "forge-core-nautilus.css"
+LEGACY_CSS_NAMES = ("forge-core-nautilus-thumbnails.css",)
 NAUTILUS_CSS_SOURCE = Path(__file__).resolve().parent.parent / "gtk-4.0" / NAUTILUS_CSS_NAME
 GTK4_DIR = Path(GLib.get_user_config_dir()) / "gtk-4.0"
 GTK4_CSS = GTK4_DIR / "gtk.css"
-NAUTILUS_CSS_IMPORT = f'@import url("{NAUTILUS_CSS_NAME}");'
+NAUTILUS_CSS_IMPORTS = tuple(
+    f'@import url("{name}");' for name in (NAUTILUS_CSS_NAME, *LEGACY_CSS_NAMES)
+)
 GTK4_BEGIN = "/* forge-core:begin */"
 GTK4_END = "/* forge-core:end */"
 NAUTILUS_BUS = "org.gnome.Nautilus"
@@ -408,7 +411,7 @@ def strip_forge_css(text: str) -> str:
         if stripped == GTK4_END:
             inside = False
             continue
-        if inside or stripped == NAUTILUS_CSS_IMPORT:
+        if inside or stripped in NAUTILUS_CSS_IMPORTS:
             continue
         result.append(line)
     return "".join(result)
@@ -448,7 +451,8 @@ def remove_nautilus_css() -> None:
         if remaining != current:
             write_user_css(GTK4_CSS, remaining)
             print(f"css do Nautilus removido: {GTK4_CSS}")
-    (GTK4_DIR / NAUTILUS_CSS_NAME).unlink(missing_ok=True)
+    for name in (NAUTILUS_CSS_NAME, *LEGACY_CSS_NAMES):
+        (GTK4_DIR / name).unlink(missing_ok=True)
 
 
 def unit_paths() -> tuple[Path, Path, Path, Path]:

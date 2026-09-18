@@ -286,6 +286,84 @@ def wireless(name: str) -> str:
     return svg(*wifi(0), slash())
 
 
+def recent() -> str:
+    dial = ring(chamfered(1.5, 1.5, 13, 13, 3.8), chamfered(3.2, 3.2, 9.6, 9.6, 2.8))
+    hands = thick([(10.6, 9.8), (8, 8.2), (8, 4.4)], 1.6)
+    return svg(path(dial), path(hands, "error"))
+
+
+def starred() -> str:
+    points = []
+    for index in range(10):
+        angle = math.radians(-90 + index * 36)
+        radius = 7.1 if index % 2 == 0 else 3.1
+        points.append((8 + math.cos(angle) * radius, 8 + math.sin(angle) * radius))
+    apex = poly([points[9], points[0], points[1]])
+    return svg(path(poly(points)), path(apex, "error"))
+
+
+def home() -> str:
+    outline = thick([
+        (2, 10.6), (2, 7.7), (8, 2.3), (14, 7.7), (14, 13.7),
+        (9.7, 13.7), (9.7, 9.6), (6.3, 9.6), (6.3, 13.7), (2, 13.7), (2, 10.6),
+    ], 1.6)
+    door = poly(chamfered(6.5, 9.8, 3, 3.9, 0.8))
+    return svg(path(outline), path(door, "error"))
+
+
+def desktop() -> str:
+    screen = ring(chamfered(1.4, 2.6, 13.2, 9.2, 1.6), chamfered(3, 4.2, 10, 6, 1))
+    stand = thick([(8, 11.8), (8, 13.4)], 1.6) + thick([(5.2, 13.9), (10.8, 13.9)], 1.6)
+    cursor = poly(chamfered(4.4, 7.2, 2.6, 2.2, 0.6))
+    return svg(path(screen), path(stand), path(cursor, "error"))
+
+
+def documents() -> str:
+    sheet = thick([
+        (3.6, 9), (3.6, 2.2), (9.4, 2.2), (12.6, 5.4), (12.6, 13.8), (3.6, 13.8), (3.6, 9),
+    ], 1.5)
+    lines = thick([(6, 9.2), (10.2, 9.2)], 1.3) + thick([(6, 11.4), (10.2, 11.4)], 1.3)
+    fold = thick([(9.4, 2.8), (9.4, 5.4), (12, 5.4)], 1.4)
+    return svg(path(sheet), path(lines), path(fold, "error"))
+
+
+def download() -> str:
+    stem = thick([(8, 2.2), (8, 8.8)], 1.7)
+    base = thick([(3, 13.4), (13, 13.4)], 1.6)
+    arrow = thick([(4.9, 7.4), (8, 10.5), (11.1, 7.4)], 1.7)
+    return svg(path(stem), path(base), path(arrow, "error"))
+
+
+def pictures() -> str:
+    frame = ring(chamfered(1.4, 2.4, 13.2, 11.2, 1.6), chamfered(3, 4, 10, 8, 1))
+    ridge = thick([(4.2, 11.3), (7.5, 8), (12.3, 11.3)], 1.4)
+    lens = poly(chamfered(4.6, 5.3, 2.6, 2.6, 0.8))
+    return svg(path(frame), path(ridge), path(lens, "error"))
+
+
+def music() -> str:
+    staff = thick([(6.5, 11.6), (6.5, 4.1), (12.4, 2.9), (12.4, 10.4)], 1.5)
+    heads = poly(chamfered(3.2, 10.4, 3.4, 3.4, 1)) + poly(chamfered(9.1, 9.2, 3.4, 3.4, 1))
+    beam = thick([(6.5, 7.1), (12.4, 5.9)], 1.3)
+    return svg(path(staff), path(heads), path(beam, "error"))
+
+
+def videos() -> str:
+    frame = ring(chamfered(1.4, 2.8, 13.2, 10.4, 1.6), chamfered(3, 4.4, 10, 7.2, 1))
+    play = poly([(6.7, 5.7), (10.8, 8), (6.7, 10.3)])
+    return svg(path(frame), path(play, "error"))
+
+
+def trash(full: bool = False) -> str:
+    body = thick([(4.2, 5.8), (4.9, 13.8), (11.1, 13.8), (11.8, 5.8)], 1.5)
+    if full:
+        load = poly(chamfered(5.7, 8.4, 4.8, 3.8, 1.1))
+    else:
+        load = thick([(6.6, 7.9), (6.9, 11.7)], 1.3) + thick([(9.4, 7.9), (9.1, 11.7)], 1.3)
+    lid = thick([(2.6, 5.2), (13.4, 5.2)], 1.6) + thick([(6.1, 2.6), (9.9, 2.6)], 1.6)
+    return svg(path(body), path(load), path(lid, "error"))
+
+
 def icons() -> dict[str, dict[str, str]]:
     status = {}
     for name in ("excellent", "good", "ok", "weak", "none"):
@@ -339,7 +417,26 @@ def icons() -> dict[str, dict[str, str]]:
         "audio-headphones-symbolic": headphones(),
     }
     apps = {"org.gnome.Settings-symbolic": settings()}
-    return {"status": status, "actions": actions, "devices": devices, "apps": apps}
+    status["starred-symbolic"] = starred()
+    actions["document-open-recent-symbolic"] = recent()
+    places = {
+        "user-home-symbolic": home(),
+        "user-desktop-symbolic": desktop(),
+        "folder-documents-symbolic": documents(),
+        "folder-download-symbolic": download(),
+        "folder-pictures-symbolic": pictures(),
+        "folder-music-symbolic": music(),
+        "folder-videos-symbolic": videos(),
+        "user-trash-symbolic": trash(),
+        "user-trash-full-symbolic": trash(full=True),
+    }
+    return {
+        "status": status,
+        "actions": actions,
+        "devices": devices,
+        "apps": apps,
+        "places": places,
+    }
 
 
 def build() -> None:

@@ -72,10 +72,12 @@ O Nautilus 46 também lê `thumbnail::path` de pastas e marca o ícone com a cla
 (`/org/gnome/nautilus/Checkerboard.png`) e contorno. Sem correção, toda pasta
 com ícone customizado aparece num quadrado xadrez em vez de transparente.
 
-Por isso o `apply` instala `gtk-4.0/forge-core-nautilus-thumbnails.css` em
-`~/.config/gtk-4.0/` e adiciona o `@import` no topo do `gtk.css` do usuário
-(prioridade USER, acima da APPLICATION do Nautilus). O `restore` remove a
-linha e o arquivo; o resto do `gtk.css` fica intacto.
+Por isso o `apply` instala `gtk-4.0/forge-core-nautilus.css` em
+`~/.config/gtk-4.0/` e embute o conteúdo no topo do `gtk.css` do usuário, entre
+`/* forge-core:begin */` e `/* forge-core:end */` (prioridade USER, acima da
+APPLICATION do Nautilus). O `restore` remove o bloco e o arquivo; o resto do
+`gtk.css` fica intacto. A regra do xadrez é a primeira do arquivo; o restante é
+o redesenho do interior do Nautilus, descrito em [`nautilus.md`](nautilus.md).
 
 O GTK só lê o `gtk.css` na inicialização: após o primeiro `apply`, rode
 `nautilus -q` e reabra. A regra vale para toda miniatura do Nautilus — imagens
